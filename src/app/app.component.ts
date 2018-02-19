@@ -1,21 +1,42 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { NativeStorage } from '@ionic-native/native-storage';
 
-import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
+import { UserPage } from '../pages/user/user';
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  @ViewChild(Nav) nav: Nav;
+
+  rootPage:any;
+
+  constructor(  platform: Platform,
+    public nativeStorage: NativeStorage,
+    public splashScreen: SplashScreen,
+    public statusBar: StatusBar) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+      // Here we will check if the user is already logged in
+      // because we don't want to ask users to log in each time they open the app
+      let env = this;
+      this.nativeStorage.getItem('user')
+      .then( function (data) {
+        // user is previously logged and we have his data
+        // we will let him access the app
+        env.nav.push(UserPage);
+        env.splashScreen.hide();
+      }, function (error) {
+        //we don't have the user data so we will ask him to log in
+        env.nav.push(LoginPage);
+        env.splashScreen.hide();
+      });
+
+      this.statusBar.styleDefault();
     });
   }
 }
