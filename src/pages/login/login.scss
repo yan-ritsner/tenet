@@ -5,11 +5,13 @@ page-login {
     }
   
     .label-logo{
-      color: white;
-      font-size: 300%;
-      font-weight: bold;
       text-align: center;
       padding-top: 50px;
+
+      >ion-img
+      {
+        background-color: transparent;
+      }
     }
   
     .label-description{
