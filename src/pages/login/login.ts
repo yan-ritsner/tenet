@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 import { UserPage } from '../user/user';
-
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   FB_APP_ID: number = 792896977566345;
 
   pStyle: object = {};
@@ -18,11 +17,45 @@ export class LoginPage implements OnInit {
   pHeight: number = 100;
 
   constructor(
+    public menu: MenuController,
     public navCtrl: NavController,
     public fb: Facebook,
-    public nativeStorage: NativeStorage
-    ) {
+    public nativeStorage: NativeStorage) {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
+
+    menu.enable(true);
+    
+    this.pStyle = {
+      'background-color' : '#222',
+      'position': 'fixed',
+      'width': '100%',
+      'height': '100%',
+      'z-index': -1,
+      'top': 0,
+      'left': 0,
+      'right': 0,
+      'bottom': 0,
+    };
+
+    this.pParams = {
+        particles: {
+          line_linked: {
+              enable: true,
+              color: "#fff",
+              opacity: 0.4,
+              width: 1
+            },
+            number: {
+                value: 100,
+            },
+            color: {
+                value: '#fff'
+            },
+            shape: {
+                type: 'circle',
+            },
+      },
+    };
   }
 
   doFbLogin(){
@@ -49,7 +82,7 @@ export class LoginPage implements OnInit {
           picture: user.picture
         })
         .then(() => {
-          nav.push(UserPage);
+          nav.setRoot(UserPage);
         },(error) => {
           console.log(error);
         })
@@ -57,39 +90,5 @@ export class LoginPage implements OnInit {
     }, (error) => {
       console.log(error);
     });
-  }
-
-  ngOnInit() {
-    this.pStyle = {
-        'background-color' : '#222',
-        'position': 'fixed',
-        'width': '100%',
-        'height': '100%',
-        'z-index': -1,
-        'top': 0,
-        'left': 0,
-        'right': 0,
-        'bottom': 0,
-    };
-
-    this.pParams = {
-          particles: {
-            line_linked: {
-                enable: true,
-                color: "#fff",
-                opacity: 0.4,
-                width: 1
-              },
-              number: {
-                  value: 100,
-              },
-              color: {
-                  value: '#fff'
-              },
-              shape: {
-                  type: 'circle',
-              },
-        },
-    };
   }
 }
