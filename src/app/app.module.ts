@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { ParticlesModule } from 'angular-particle'
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
@@ -17,6 +18,7 @@ import { UserPage } from '../pages/user/user';
     UserPage
   ],
   imports: [
+    ParticlesModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)
   ],

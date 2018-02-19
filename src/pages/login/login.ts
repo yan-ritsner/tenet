@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { NavController } from 'ionic-angular';
 import { UserPage } from '../user/user';
 
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   FB_APP_ID: number = 792896977566345;
+
+  pStyle: object = {};
+  pParams: object = {};
+  pWidth: number = 100;
+  pHeight: number = 100;
 
   constructor(
     public navCtrl: NavController,
@@ -51,5 +57,39 @@ export class LoginPage {
     }, (error) => {
       console.log(error);
     });
+  }
+
+  ngOnInit() {
+    this.pStyle = {
+        'background-color' : '#222',
+        'position': 'fixed',
+        'width': '100%',
+        'height': '100%',
+        'z-index': -1,
+        'top': 0,
+        'left': 0,
+        'right': 0,
+        'bottom': 0,
+    };
+
+    this.pParams = {
+          particles: {
+            line_linked: {
+                enable: true,
+                color: "#fff",
+                opacity: 0.4,
+                width: 1
+              },
+              number: {
+                  value: 100,
+              },
+              color: {
+                  value: '#fff'
+              },
+              shape: {
+                  type: 'circle',
+              },
+        },
+    };
   }
 }

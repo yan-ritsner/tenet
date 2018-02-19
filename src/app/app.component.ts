@@ -39,5 +39,7 @@ export class MyApp {
       this.statusBar.styleDefault();
     });
   }
+
+  
 }
 
