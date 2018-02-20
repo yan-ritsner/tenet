@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Facebook } from '@ionic-native/facebook';
-import { NativeStorage } from '@ionic-native/native-storage';
+import { Storage } from '@ionic/storage';
 import { NavController, MenuController } from 'ionic-angular';
 import { UserPage } from '../user/user';
 
@@ -20,7 +20,7 @@ export class LoginPage {
     public menu: MenuController,
     public navCtrl: NavController,
     public fb: Facebook,
-    public nativeStorage: NativeStorage) {
+    public storage: Storage) {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
 
     menu.enable(true);
@@ -74,8 +74,8 @@ export class LoginPage {
       this.fb.api("/me?fields=name,gender", params)
       .then((user) => {
         user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
-        //now we have the users info, let's save it in the NativeStorage
-        this.nativeStorage.setItem('user',
+        //now we have the users info, let's save it in the Storage
+        this.storage.set('user',
         {
           name: user.name,
           gender: user.gender,

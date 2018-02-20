@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook } from '@ionic-native/facebook';
-import { NativeStorage } from '@ionic-native/native-storage';
+import { IonicStorageModule } from '@ionic/storage';
 import { ParticlesModule } from 'angular-particle'
 
 import { MyApp } from './app.component';
@@ -20,7 +20,8 @@ import { UserPage } from '../pages/user/user';
   imports: [
     ParticlesModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -32,7 +33,6 @@ import { UserPage } from '../pages/user/user';
     StatusBar,
     SplashScreen,
     Facebook,
-    NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
