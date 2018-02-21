@@ -10,12 +10,14 @@ import { ParticlesModule } from 'angular-particle'
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { UserPage } from '../pages/user/user';
+import { SignupPage } from './../pages/signup/signup';
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
-    UserPage
+    UserPage,
+    SignupPage
   ],
   imports: [
     ParticlesModule,
@@ -27,7 +29,8 @@ import { UserPage } from '../pages/user/user';
   entryComponents: [
     MyApp,
     LoginPage,
-    UserPage
+    UserPage,
+    SignupPage,
   ],
   providers: [
     StatusBar,

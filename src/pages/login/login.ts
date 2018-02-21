@@ -3,6 +3,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { Storage } from '@ionic/storage';
 import { NavController, MenuController } from 'ionic-angular';
 import { UserPage } from '../user/user';
+import { SignupPage } from '../signup/signup';
 
 @Component({
   selector: 'page-login',
@@ -22,11 +23,11 @@ export class LoginPage {
     public fb: Facebook,
     public storage: Storage) {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
+  }
 
-    menu.enable(true);
-    
+  ionViewDidLoad(){
+       
     this.pStyle = {
-      'background-color' : '#222',
       'position': 'fixed',
       'width': '100%',
       'height': '100%',
@@ -61,7 +62,7 @@ export class LoginPage {
   doFbLogin(){
     let permissions = new Array<string>();
     let nav = this.navCtrl;
-
+    let menu = this.menu;
     //the permissions your facebook app needs from the user
     permissions = ["public_profile"];
 
@@ -82,6 +83,7 @@ export class LoginPage {
           picture: user.picture
         })
         .then(() => {
+          menu.enable(true);
           nav.setRoot(UserPage);
         },(error) => {
           console.log(error);
@@ -90,5 +92,9 @@ export class LoginPage {
     }, (error) => {
       console.log(error);
     });
+  }
+
+  doSignup(){
+    this.navCtrl.push(SignupPage);
   }
 }
