@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { NavController, MenuController } from 'ionic-angular';
 import { UserPage } from '../user/user';
 import { SignupPage } from '../signup/signup';
+import { SigninPage } from '../signin/signin';
 
 @Component({
   selector: 'page-login',
@@ -78,6 +79,7 @@ export class LoginPage {
         //now we have the users info, let's save it in the Storage
         this.storage.set('user',
         {
+          isfb: true,
           name: user.name,
           gender: user.gender,
           picture: user.picture
@@ -94,6 +96,9 @@ export class LoginPage {
     });
   }
 
+  doSignin(){
+    this.navCtrl.push(SigninPage);
+  }
   doSignup(){
     this.navCtrl.push(SignupPage);
   }

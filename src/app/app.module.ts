@@ -11,13 +11,15 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { UserPage } from '../pages/user/user';
 import { SignupPage } from './../pages/signup/signup';
+import { SigninPage } from './../pages/signin/signin';
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
     UserPage,
-    SignupPage
+    SignupPage,
+    SigninPage
   ],
   imports: [
     ParticlesModule,
@@ -31,6 +33,7 @@ import { SignupPage } from './../pages/signup/signup';
     LoginPage,
     UserPage,
     SignupPage,
+    SigninPage,
   ],
   providers: [
     StatusBar,

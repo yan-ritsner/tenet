@@ -25,9 +25,8 @@ export class UserPage {
       if(data)
       {
         this.user = {
+          isfb: data.isfb,
           name: data.name,
-          gender: data.gender,
-          picture: data.picture
         };
         this.userReady = true;
       }
@@ -40,15 +39,27 @@ export class UserPage {
     });
   }
 
-  doFbLogout(){
-    var nav = this.navCtrl;
-    this.fb.logout()
-    .then((response) => {
+  doLogout(){
+    if(this.user.isfb)
+    {
+      this.fb.logout()
+      .then((response) => {
+        //user logged out so we will remove him from the Storage
+        this.logoutUser();
+      }, (error) => {
+        console.log(error);
+      });
+    }
+    else
+    {
       //user logged out so we will remove him from the Storage
-      this.storage.remove('user');
-      nav.push(LoginPage);
-    }, (error) => {
-      console.log(error);
-    });
+      this.logoutUser();
+    }
   }
+
+  logoutUser(){
+    this.storage.remove('user');
+    this.navCtrl.push(LoginPage);
+  }
+
 }

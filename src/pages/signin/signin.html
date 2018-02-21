@@ -4,18 +4,13 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Sign up with email</ion-title>
+    <ion-title>Sign in with email</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list inset>
 
-    <ion-item>
-      <ion-label floating>Full Name</ion-label>
-      <ion-input [(ngModel)]="name" type="text"></ion-input>
-    </ion-item>
-  
     <ion-item>
       <ion-label floating>Email</ion-label>
       <ion-input  [(ngModel)]="email" type="email"></ion-input>
@@ -28,5 +23,7 @@
   
   </ion-list>
 
-  <button ion-button block (click)="doSignup()">Signup</button>
+  <div padding color="danger" *ngIf="errorVisible">Wrong email or password</div>
+
+  <button ion-button block (click)="doSignin()">Signup</button>
 </ion-content>
