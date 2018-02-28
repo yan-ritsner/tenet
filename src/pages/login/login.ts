@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Facebook } from '@ionic-native/facebook';
 import { Storage } from '@ionic/storage';
 import { NavController, MenuController } from 'ionic-angular';
@@ -10,7 +10,7 @@ import { SigninPage } from '../signin/signin';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage implements OnInit  {
   FB_APP_ID: number = 792896977566345;
 
   pStyle: object = {};
@@ -26,7 +26,7 @@ export class LoginPage {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
-  ionViewDidLoad(){
+ngOnInit(){
        
     this.pStyle = {
       'position': 'fixed',
