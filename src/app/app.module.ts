@@ -12,6 +12,7 @@ import { LoginPage } from '../pages/login/login';
 import { UserPage } from '../pages/user/user';
 import { SignupPage } from './../pages/signup/signup';
 import { SigninPage } from './../pages/signin/signin';
+import { ApiProvider } from '../providers/api/api';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SigninPage } from './../pages/signin/signin';
     StatusBar,
     SplashScreen,
     Facebook,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ApiProvider
   ]
 })
 export class AppModule {}
