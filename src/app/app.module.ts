@@ -13,6 +13,7 @@ import { UserPage } from '../pages/user/user';
 import { SignupPage } from './../pages/signup/signup';
 import { SigninPage } from './../pages/signin/signin';
 import { ApiProvider } from '../providers/api/api';
+import { SystemProvider } from '../providers/system/system';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ApiProvider } from '../providers/api/api';
     SplashScreen,
     Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ApiProvider
+    ApiProvider,
+    SystemProvider
   ]
 })
 export class AppModule {}
