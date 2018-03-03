@@ -14,10 +14,17 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class WalletsPage {
 
-  public wallets : any
+  public wallets : any[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
+  addWallet(){
+      
+  }
 
+  createWallet(){
+
+  }
 }

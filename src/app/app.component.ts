@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../pages/login/login';
 import { UserPage } from '../pages/user/user';
+import { WalletsPage } from '../pages/wallets/wallets';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,6 +20,7 @@ export class MyApp {
   // set our app's pages
   pages = [
       { title: 'User Details', component: UserPage },
+      { title: 'Wallets', component: WalletsPage },
   ];
 
   constructor(
