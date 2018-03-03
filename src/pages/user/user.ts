@@ -11,8 +11,8 @@ import { LoginPage } from '../login/login';
 
 export class UserPage implements OnInit {
 
-  user: any;
-  userReady: boolean = false;
+  public user: any = {};
+  public userReady: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -20,19 +20,20 @@ export class UserPage implements OnInit {
     public storage: Storage) {}
 
   ngOnInit(){
-    this.storage.get('user')
+     let model = this;
+     model.storage.get('user')
     .then((data) => {
       if(data)
       {
-        this.user = {
+        model.user = {
           isfb: data.isfb,
           name: data.name,
         };
-        this.userReady = true;
+        model.userReady = true;
       }
       else
       {
-        this.navCtrl.push(LoginPage);
+        model.navCtrl.push(LoginPage);
       }
     }, (error) => {
       console.log(error);

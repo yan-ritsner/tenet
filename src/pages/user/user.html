@@ -7,13 +7,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content *ngIf='userReady'>
-
-  <div style="height:80%;" padding>Welcome {{user.name}}!</div>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button block (click)="doLogout()">Logout</button>
-    </ion-col>
-  </ion-row>
+<ion-content>
+  <div style="height:100%;width:100%" *ngIf="userReady">
+    <div style="height:80%;" padding>Welcome {{user.name}}!</div>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="doLogout()">Logout</button>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>
