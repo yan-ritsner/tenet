@@ -8,20 +8,25 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ParticlesModule } from 'angular-particle'
 
 import { MyApp } from './app.component';
+
 import { LoginPage } from '../pages/login/login';
 import { UserPage } from '../pages/user/user';
 import { SignupPage } from './../pages/signup/signup';
 import { SigninPage } from './../pages/signin/signin';
+import { WalletsPage } from './../pages/wallets/wallets';
+
 import { ApiProvider } from '../providers/api/api';
 import { SystemProvider } from '../providers/system/system';
 
 @NgModule({
   declarations: [
     MyApp,
+
     LoginPage,
     UserPage,
     SignupPage,
-    SigninPage
+    SigninPage,
+    WalletsPage
   ],
   imports: [
     ParticlesModule,
@@ -32,16 +37,19 @@ import { SystemProvider } from '../providers/system/system';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+
     LoginPage,
     UserPage,
     SignupPage,
     SigninPage,
+    WalletsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    
     ApiProvider,
     SystemProvider
   ]

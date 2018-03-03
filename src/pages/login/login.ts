@@ -26,7 +26,7 @@ export class LoginPage implements OnInit  {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
-ngOnInit(){
+  ngOnInit(){
        
     this.pStyle = {
       'position': 'fixed',

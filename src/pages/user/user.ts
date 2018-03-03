@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { Storage } from '@ionic/storage';
@@ -9,7 +9,7 @@ import { LoginPage } from '../login/login';
   templateUrl: 'user.html'
 })
 
-export class UserPage {
+export class UserPage implements OnInit {
 
   user: any;
   userReady: boolean = false;
@@ -19,7 +19,7 @@ export class UserPage {
     public fb: Facebook,
     public storage: Storage) {}
 
-  ionViewCanEnter(){
+  ngOnInit(){
     this.storage.get('user')
     .then((data) => {
       if(data)
