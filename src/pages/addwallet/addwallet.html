@@ -1,0 +1,30 @@
+
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Add existing wallet</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-list inset>
+
+      <ion-item>
+        <ion-label floating>Wallet name</ion-label>
+        <ion-input [(ngModel)]="name" type="text"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating>Wallet password</ion-label>
+        <ion-input [(ngModel)]="password" type="password"></ion-input>
+      </ion-item>
+    
+    </ion-list>
+  
+    <div padding color="danger" *ngIf="errorVisible">{{error}}</div>
+
+    <button ion-button block (click)="doAddWallet()">Add wallet</button>
+  </ion-content>
+  

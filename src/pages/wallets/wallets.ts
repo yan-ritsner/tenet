@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+import { AddwalletPage } from '../addwallet/addwallet';
 
-/**
- * Generated class for the WalletsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-wallets',
@@ -16,12 +11,12 @@ export class WalletsPage {
 
   public wallets : any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController) {
 
   }
 
   addWallet(){
-      
+      this.navCtrl.push(AddwalletPage);
   }
 
   createWallet(){

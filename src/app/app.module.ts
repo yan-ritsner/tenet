@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook } from '@ionic-native/facebook';
 import { IonicStorageModule } from '@ionic/storage';
 import { ParticlesModule } from 'angular-particle'
+import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 
@@ -14,6 +15,7 @@ import { UserPage } from '../pages/user/user';
 import { SignupPage } from './../pages/signup/signup';
 import { SigninPage } from './../pages/signin/signin';
 import { WalletsPage } from './../pages/wallets/wallets';
+import { AddwalletPage } from './../pages/addwallet/addwallet';
 
 import { ApiProvider } from '../providers/api/api';
 import { SystemProvider } from '../providers/system/system';
@@ -26,10 +28,12 @@ import { SystemProvider } from '../providers/system/system';
     UserPage,
     SignupPage,
     SigninPage,
-    WalletsPage
+    WalletsPage,
+    AddwalletPage
   ],
   imports: [
     ParticlesModule,
+    HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
@@ -42,7 +46,8 @@ import { SystemProvider } from '../providers/system/system';
     UserPage,
     SignupPage,
     SigninPage,
-    WalletsPage
+    WalletsPage,
+    AddwalletPage
   ],
   providers: [
     StatusBar,
