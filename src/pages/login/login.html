@@ -1,18 +1,15 @@
 <particles [params]="pParams" [style]="pStyle" [width]="pWidth" [height]="pHeight"></particles>
 <ion-content class="login-content" padding>
-  <ion-row class="top-row">
-    <ion-col>
+
       <h1 class="label-logo">      
         <ion-img  width="233px" height="75px" src="assets/imgs/lvl4.svg"></ion-img> 
       </h1>
       <p class="label-description">A new level of blockchain interactivity</p>
-    </ion-col>
-  </ion-row>
-  <ion-row class="bottom-row">
-    <ion-col class="login-button">
-      <button ion-button block (click)="doFbLogin()">Login with Facebook</button>
-      <button ion-button color="primary2" block (click)="doSignin()">Sign in</button>
-      <button ion-button color="primary3" block (click)="doSignup()">Sign up</button>
-    </ion-col>
-  </ion-row>
+
+      <div class="bottom-aligned">
+        <button ion-button block (click)="doFbLogin()">Login with Facebook</button>
+        <button ion-button color="primary2" block (click)="doSignin()">Sign in</button>
+        <button ion-button color="primary3" block (click)="doSignup()">Sign up</button>
+    </div>
 </ion-content>
+

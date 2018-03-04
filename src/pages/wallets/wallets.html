@@ -8,14 +8,17 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list inset>
-
-        <ion-item>
-          Wallets list
-        </ion-item>
-      
-    </ion-list>
-
-    <button ion-button block (click)="addWallet()">Add Existing Wallet</button>
-    <button ion-button color="primary2" block (click)="createWallet()">Create New wallet</button>
+  <ion-list inset>
+    <ion-list-header>
+      Wallet
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name="ios-briefcase-outline" color="primary" item-start></ion-icon>
+      <span>{{wallet}}</span>
+    </ion-item>
+  </ion-list>
+  <div class="bottom-aligned">
+     <button ion-button block (click)="addWallet()">Add Existing Wallet</button>
+     <button ion-button color="primary2" block (click)="createWallet()">Create New wallet</button>
+  </div>
 </ion-content>

@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list inset>
+  <ion-list inset style="height:80%">
 
     <ion-item>
       <ion-label floating>Full Name</ion-label>
@@ -28,5 +28,8 @@
   
   </ion-list>
 
-  <button ion-button block (click)="doSignup()">Signup</button>
+  <div class="bottom-aligned">
+      <button ion-button block (click)="doSignup()">Signup</button>
+  </div>
+
 </ion-content>

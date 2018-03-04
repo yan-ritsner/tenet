@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, MenuController, } from 'ionic-angular';
 import { ApiProvider } from './../../providers/api/api';
 import { WalletLoad } from './../../data/wallet-load';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-addwallet',
@@ -17,8 +18,8 @@ export class AddwalletPage {
   constructor(
     public api: ApiProvider,
     public menu: MenuController,
-    public navCtrl: NavController) {
-      
+    public navCtrl: NavController,
+    public storage: Storage) {
   }
 
   doAddWallet(){
@@ -31,7 +32,26 @@ export class AddwalletPage {
     .subscribe(
       response => {
         if (response.status >= 200 && response.status < 400) {
+            this.storage.get('wallets')
+            .then((data) => {
+              if(!data)data = {};
+              data[walletLoad.name] = {
+                name : walletLoad.name,
+              };
+              this.storage.set('wallets',data);
+            }, (error) => {
+              console.log(error);
+            });
 
+            this.storage.set('wallet',
+            {
+              name : this.name,
+            })
+            .then(() => {
+                this.navCtrl.pop();
+            },(error) => {
+              console.log(error);
+            });
         }
       },
       error => {
