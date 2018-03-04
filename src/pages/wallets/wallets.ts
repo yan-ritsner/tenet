@@ -38,7 +38,7 @@ export class WalletsPage {
   }
 
   receive(){
-    alert("send")
+    alert("receive")
   }
 
   addWallet(){
