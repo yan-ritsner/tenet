@@ -33,11 +33,21 @@ export class WalletsPage {
     });
   }
 
+  send(){
+    alert("send")
+  }
+
+  receive(){
+    alert("send")
+  }
+
   addWallet(){
       this.navCtrl.push(AddwalletPage);
   }
 
   createWallet(){
-
+    alert("createWallet")
   }
+
+
 }

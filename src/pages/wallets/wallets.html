@@ -33,6 +33,21 @@
                       <span>Unconfirmed: 0.00000000</span>
                   </ion-item>
                 </ion-list>
+                <ion-list inset>
+                    <ion-list-header>
+                      Actions
+                    </ion-list-header>
+                    <button ion-item (click)="send()">
+                        <ion-icon name="ios-arrow-dropright-outline" color="primary" item-start></ion-icon>
+                        <span>Send</span>
+                        <ion-icon name="ios-arrow-forward-outline" color="primary2" item-end></ion-icon>
+                    </button>
+                    <button ion-item (click)="receive()">
+                        <ion-icon name="ios-arrow-dropleft-outline" color="primary" item-start></ion-icon>
+                        <span>Receive</span>
+                        <ion-icon name="ios-arrow-forward-outline" color="primary2" item-end></ion-icon>
+                    </button>
+                  </ion-list>
           </ion-col>
         </ion-row>
         <ion-row>
