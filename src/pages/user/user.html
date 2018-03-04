@@ -8,12 +8,20 @@
 </ion-header>
 
 <ion-content padding>
-  <div style="height:100%;width:100%" *ngIf="userReady">
 
-    <div padding>Welcome {{user.name}}!</div>
+    <ion-grid class="grid-shrink" *ngIf="userReady">
+      <ion-row>
+        <ion-col>
+            <div padding>Welcome {{user.name}}!</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>
+              <div class="buttons-block">
+                  <button ion-button block (click)="doLogout()">Logout</button>
+              </div>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
 
-    <div class="bottom-aligned">
-        <button ion-button block (click)="doLogout()">Logout</button>
-    </div>
-  </div>
 </ion-content>

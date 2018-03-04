@@ -1,4 +1,3 @@
-
 <ion-header>
     <ion-navbar color="primary">
       <button ion-button menuToggle>
@@ -6,28 +5,38 @@
       </button>
       <ion-title>Add existing wallet</ion-title>
     </ion-navbar>
-  </ion-header>
+</ion-header>
   
-  <ion-content padding>
-    <ion-list inset>
+<ion-content padding>
+  <ion-grid class="grid-shrink">
+    <ion-row>
+      <ion-col>
+          <ion-list inset>
 
-      <ion-item>
-        <ion-label floating>Wallet name</ion-label>
-        <ion-input [(ngModel)]="name" type="text"></ion-input>
-      </ion-item>
-    
-      <ion-item>
-        <ion-label floating>Wallet password</ion-label>
-        <ion-input [(ngModel)]="password" type="password"></ion-input>
-      </ion-item>
-    
-    </ion-list>
-  
-    <div padding color="danger" *ngIf="errorVisible">{{error}}</div>
+              <ion-item>
+                <ion-label floating>Wallet name</ion-label>
+                <ion-input [(ngModel)]="name" type="text"></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label floating>Wallet password</ion-label>
+                <ion-input [(ngModel)]="password" type="password"></ion-input>
+              </ion-item>
+              
+            </ion-list>
+            
+            <div padding color="danger" *ngIf="errorVisible">{{error}}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+          
+          <div class="buttons-block">
+            <button ion-button block (click)="doAddWallet()">Add wallet</button>
+          </div>
 
-    <div class="bottom-aligned">
-        <button ion-button block (click)="doAddWallet()">Add wallet</button>
-    </div>
-
-  </ion-content>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
   

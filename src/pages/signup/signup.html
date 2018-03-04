@@ -9,27 +9,40 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list inset>
+  <ion-grid class="grid-shrink">
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
 
-    <ion-item>
-      <ion-label floating>Full Name</ion-label>
-      <ion-input [(ngModel)]="name" type="text"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input  [(ngModel)]="email" type="email"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input  [(ngModel)]="password" type="password"></ion-input>
-    </ion-item>
-  
-  </ion-list>
+          <ion-item>
+            <ion-label floating>Full Name</ion-label>
+            <ion-input [(ngModel)]="name" type="text"></ion-input>
+          </ion-item>
+            
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input  [(ngModel)]="email" type="email"></ion-input>
+          </ion-item>
+            
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input  [(ngModel)]="password" type="password"></ion-input>
+           </ion-item>
+            
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
 
-  <div class="bottom-aligned">
-      <button ion-button block (click)="doSignup()">Signup</button>
-  </div>
+          <div class="buttons-block">
+            <button ion-button block (click)="doSignup()">Signup</button>
+          </div>
+          
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+
+
 
 </ion-content>

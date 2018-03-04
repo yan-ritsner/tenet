@@ -9,24 +9,35 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list inset>
+  <ion-grid class="grid-shrink">
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
 
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input  [(ngModel)]="email" type="email"></ion-input>
-    </ion-item>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input  [(ngModel)]="email" type="email"></ion-input>
+          </ion-item>
+            
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input  [(ngModel)]="password" type="password"></ion-input>
+          </ion-item>
+            
+        </ion-list>
+
+        <div padding color="danger" *ngIf="errorVisible">Wrong email or password</div>
+
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
   
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input  [(ngModel)]="password" type="password"></ion-input>
-    </ion-item>
-  
-  </ion-list>
-
-  <div padding color="danger" *ngIf="errorVisible">Wrong email or password</div>
-
-  <div class="bottom-aligned">
-      <button ion-button block (click)="doSignin()">Signin</button>
-  </div>
- 
+          <div class="buttons-block">
+            <button ion-button block (click)="doSignin()">Signin</button>
+          </div>
+           
+        </ion-col>
+      </ion-row>
+  </ion-grid>
 </ion-content>
