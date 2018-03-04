@@ -3,12 +3,13 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>User Details</ion-title>
+    <ion-title>User</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div style="height:100%;width:100%" *ngIf="userReady">
+
     <div padding>Welcome {{user.name}}!</div>
 
     <div class="bottom-aligned">

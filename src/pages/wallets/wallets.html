@@ -17,6 +17,19 @@
       <span>{{wallet}}</span>
     </ion-item>
   </ion-list>
+  <ion-list inset>
+    <ion-list-header>
+      Balance
+    </ion-list-header>
+    <ion-item>
+        <ion-icon name="ios-checkmark-circle-outline" color="primary3" item-start></ion-icon>
+        <span>Amount: 1.00000000</span>
+    </ion-item>
+    <ion-item>
+        <ion-icon name="ios-help-circle-outline" color="primary3" item-start></ion-icon>
+        <span>Unconfirmed: 0.00000000</span>
+    </ion-item>
+  </ion-list>
   <div class="bottom-aligned">
      <button ion-button block (click)="addWallet()">Add Existing Wallet</button>
      <button ion-button color="primary2" block (click)="createWallet()">Create New wallet</button>

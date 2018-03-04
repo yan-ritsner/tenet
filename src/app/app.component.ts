@@ -19,8 +19,8 @@ export class MyApp {
 
   // set our app's pages
   pages = [
-      { title: 'User Details', component: UserPage },
-      { title: 'Wallets', component: WalletsPage },
+      { title: 'User', component: UserPage, icon: "ios-contact-outline" },
+      { title: 'Wallets', component: WalletsPage, icon: "ios-briefcase-outline" },
   ];
 
   constructor(
