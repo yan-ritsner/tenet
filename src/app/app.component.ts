@@ -7,6 +7,9 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 import { UserPage } from '../pages/user/user';
 import { WalletsPage } from '../pages/wallets/wallets';
+import { SendPage } from '../pages/send/send';
+import { ReceivePage } from '../pages/receive/receive';
+import { TransactionsPage } from '../pages/transactions/transactions';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,6 +24,9 @@ export class MyApp {
   pages = [
       { title: 'User', component: UserPage, icon: "ios-contact-outline" },
       { title: 'Wallets', component: WalletsPage, icon: "ios-briefcase-outline" },
+      { title: 'Send', component: SendPage, icon: "ios-arrow-dropright-outline" },
+      { title: 'Receive', component: ReceivePage, icon: "ios-arrow-dropleft-outline" },
+      { title: 'Transactions', component: TransactionsPage, icon: "ios-swap-outline" },
   ];
 
   constructor(

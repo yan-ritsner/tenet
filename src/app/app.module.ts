@@ -16,6 +16,10 @@ import { SignupPage } from './../pages/signup/signup';
 import { SigninPage } from './../pages/signin/signin';
 import { WalletsPage } from './../pages/wallets/wallets';
 import { AddwalletPage } from './../pages/addwallet/addwallet';
+import { CreatewalletPage } from './../pages/createwallet/createwallet';
+import { SendPage } from './../pages/send/send';
+import { ReceivePage } from './../pages/receive/receive';
+import { TransactionsPage } from './../pages/transactions/transactions';
 
 import { ApiProvider } from '../providers/api/api';
 import { SystemProvider } from '../providers/system/system';
@@ -29,7 +33,11 @@ import { SystemProvider } from '../providers/system/system';
     SignupPage,
     SigninPage,
     WalletsPage,
-    AddwalletPage
+    AddwalletPage,
+    CreatewalletPage,
+    SendPage,
+    ReceivePage,
+    TransactionsPage,
   ],
   imports: [
     ParticlesModule,
@@ -47,7 +55,11 @@ import { SystemProvider } from '../providers/system/system';
     SignupPage,
     SigninPage,
     WalletsPage,
-    AddwalletPage
+    AddwalletPage,
+    CreatewalletPage,
+    SendPage,
+    ReceivePage,
+    TransactionsPage
   ],
   providers: [
     StatusBar,
