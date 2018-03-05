@@ -86,7 +86,7 @@ export class WalletsPage {
       error => {
         
         if (error.status === 0) {
-          this.error = "Could not login wallet info"
+          this.error = "Could not load wallet info"
         
         } else if (error.status >= 400) {
           if (!error.json().errors[0]) {
