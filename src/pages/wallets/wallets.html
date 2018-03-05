@@ -11,29 +11,33 @@
     <ion-grid class="grid-shrink">
         <ion-row>
           <ion-col>
-              <ion-list inset>
+                <ion-list inset>
                   <ion-list-header>
                     Wallet
                   </ion-list-header>
-                  <ion-item>
+                  <ion-item *ngIf="walletReady">
                     <ion-icon name="ios-briefcase-outline" color="primary" item-start></ion-icon>
                     <span>{{wallet}}</span>
                   </ion-item>
+                  <ion-item *ngIf="!walletReady">
+                    <ion-icon name="ios-briefcase-outline" color="primary" item-start></ion-icon>
+                    <span>Please add or create a wallet.</span>
+                  </ion-item>
                 </ion-list>
-                <ion-list inset>
+                <ion-list inset *ngIf="walletReady">
                   <ion-list-header>
                     Balance
                   </ion-list-header>
                   <ion-item>
                       <ion-icon name="ios-checkmark-circle-outline" color="primary3" item-start></ion-icon>
-                      <span>Amount: 1.00000000</span>
+                      <span>Amount: {{balance(confirmedBalance)}}</span>
                   </ion-item>
                   <ion-item>
                       <ion-icon name="ios-help-circle-outline" color="primary3" item-start></ion-icon>
-                      <span>Unconfirmed: 0.00000000</span>
+                      <span>Unconfirmed: {{balance(unconfirmedBalance)}}</span>
                   </ion-item>
                 </ion-list>
-                <ion-list inset>
+                <ion-list inset *ngIf="walletReady">
                     <ion-list-header>
                       Actions
                     </ion-list-header>
@@ -47,7 +51,8 @@
                         <span>Receive</span>
                         <ion-icon name="ios-arrow-forward-outline" color="primary2" item-end></ion-icon>
                     </button>
-                  </ion-list>
+                </ion-list>
+                <div ion-text padding color="danger" *ngIf="errorVisible">{{error}}</div>
           </ion-col>
         </ion-row>
         <ion-row>
