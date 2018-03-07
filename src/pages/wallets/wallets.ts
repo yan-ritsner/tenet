@@ -65,6 +65,10 @@ export class WalletsPage {
     alert("createWallet")
   }
 
+  restoreWallet(){
+    alert("restoreWallet")
+  }
+
   loadWallet()
   {
     this.unloadWallet();

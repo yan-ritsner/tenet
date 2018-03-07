@@ -21,7 +21,7 @@
                   </ion-item>
                   <ion-item *ngIf="!walletReady">
                     <ion-icon name="ios-briefcase-outline" color="primary" item-start></ion-icon>
-                    <span>Please add or create a wallet.</span>
+                    <span>Please load or create a wallet.</span>
                   </ion-item>
                 </ion-list>
                 <ion-list inset *ngIf="walletReady">
@@ -58,9 +58,18 @@
         <ion-row>
             <ion-col>
                 <div class="buttons-block">
-                    <button ion-button block (click)="addWallet()">Add Existing Wallet</button>
-                    <button ion-button color="primary2" block (click)="createWallet()">Create New wallet</button>
+                    <button ion-button block (click)="addWallet()">Load</button>
                  </div>
+            </ion-col>
+            <ion-col>
+                <div class="buttons-block">
+                    <button ion-button color="primary2" block (click)="createWallet()">Create</button>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="buttons-block">
+                    <button ion-button color="primary3" block (click)="restoreWallet()">Restore</button>
+                </div>
             </ion-col>
           </ion-row>
     </ion-grid>

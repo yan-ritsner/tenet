@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
+import { NavController, MenuController, } from 'ionic-angular';
+import { ApiProvider } from './../../providers/api/api';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-createwallet',
@@ -8,7 +9,17 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class CreatewalletPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  mnemonic: string;
+  name: string;
+  password :string;
+  error: string;
+  errorVisible: boolean = false;
+
+  constructor(    
+    public api: ApiProvider,
+    public menu: MenuController,
+    public navCtrl: NavController,
+    public storage: Storage) {
   }
 
   ionViewDidLoad() {
