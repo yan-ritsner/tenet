@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AddwalletPage } from '../addwallet/addwallet';
+import { CreatewalletPage } from '../createwallet/createwallet';
 import { Storage } from '@ionic/storage';
 import { SystemProvider } from '../../providers/system/system';
 import { ApiProvider } from './../../providers/api/api';
@@ -62,7 +63,7 @@ export class WalletsPage {
   }
 
   createWallet(){
-    alert("createWallet")
+    this.navCtrl.push(CreatewalletPage);
   }
 
   restoreWallet(){

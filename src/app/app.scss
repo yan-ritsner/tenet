@@ -38,3 +38,14 @@ ion-grid.grid-shrink
         flex-shrink: 0;
     }
 }
+
+.text-select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+.text-wrap
+{
+    white-space: initial;
+}

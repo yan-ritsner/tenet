@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
 })
 export class CreatewalletPage {
 
-  mnemonic: string;
+  mnemonic: string = "first second third forth fifth sixth seventh eighth ninth tenth eleven twelve";
   name: string;
   password :string;
   error: string;
@@ -26,4 +26,7 @@ export class CreatewalletPage {
     console.log('ionViewDidLoad CreatewalletPage');
   }
 
+  doCreateWallet(){
+
+  }
 }

@@ -8,5 +8,45 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-grid class="grid-shrink">
+      <ion-row>
+        <ion-col>
+            <ion-list inset>
+                <ion-item>
+                    <p>Mnemonic</p>
+                    <div class="text-wrap">
+                      <ion-badge *ngFor="let w of mnemonic.split(' ')" 
+                                  color="primary2" class="text-select" 
+                                  style="margin-right:4px;font-weight:normal">
+                        <span>{{w}}</span>
+                      </ion-badge>
+                    </div>
+                </ion-item>
 
-</ion-content>
+                <ion-item>
+                  <ion-label floating>Wallet name</ion-label>
+                  <ion-input [(ngModel)]="name" type="text"></ion-input>
+                </ion-item>
+                
+                <ion-item>
+                  <ion-label floating>Wallet password</ion-label>
+                  <ion-input [(ngModel)]="password" type="password"></ion-input>
+                </ion-item>
+                
+              </ion-list>
+              <div padding ion-text color="primary">Write down your secret words and password before you continue</div>
+              <div padding ion-text color="danger" *ngIf="errorVisible">{{error}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>
+           
+            <div class="buttons-block">
+              <button ion-button block (click)="doCreateWallet()">Add wallet</button>
+            </div>
+  
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+    
