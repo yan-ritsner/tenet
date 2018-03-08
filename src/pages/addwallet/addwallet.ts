@@ -10,8 +10,8 @@ import { Storage } from '@ionic/storage';
 })
 export class AddwalletPage {
 
-  name: string;
-  password :string;
+  walletName: string;
+  walletPassword :string;
   error: string;
   errorVisible: boolean = false;
 
@@ -26,7 +26,7 @@ export class AddwalletPage {
     this.error = null;
     this.errorVisible = false;
 
-    let walletLoad = new WalletLoad(this.name,this.password);
+    let walletLoad = new WalletLoad(this.walletName, this.walletPassword);
 
     this.api.loadWallet(walletLoad)
     .subscribe(
@@ -45,7 +45,7 @@ export class AddwalletPage {
 
             this.storage.set('wallet',
             {
-              name : this.name,
+              name : this.walletName,
             })
             .then(() => {
                 this.navCtrl.pop();

@@ -25,12 +25,12 @@
 
                 <ion-item>
                   <ion-label floating>Wallet name</ion-label>
-                  <ion-input [(ngModel)]="name" type="text"></ion-input>
+                  <ion-input [(ngModel)]="walletName" type="text"></ion-input>
                 </ion-item>
                 
                 <ion-item>
                   <ion-label floating>Wallet password</ion-label>
-                  <ion-input [(ngModel)]="password" type="password"></ion-input>
+                  <ion-input [(ngModel)]="walletPassword" type="password"></ion-input>
                 </ion-item>
                 
               </ion-list>
@@ -42,7 +42,7 @@
           <ion-col>
            
             <div class="buttons-block">
-              <button ion-button block (click)="doCreateWallet()">Add wallet</button>
+              <button ion-button block (click)="doCreateWallet()">Create wallet</button>
             </div>
   
           </ion-col>
