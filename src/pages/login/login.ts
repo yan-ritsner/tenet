@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Facebook } from '@ionic-native/facebook';
 import { Storage } from '@ionic/storage';
 import { NavController, MenuController } from 'ionic-angular';
-import { UserPage } from '../user/user';
+import { WalletsPage } from '../wallets/wallets';
 import { SignupPage } from '../signup/signup';
 import { SigninPage } from '../signin/signin';
 
@@ -86,7 +86,7 @@ export class LoginPage implements OnInit  {
         })
         .then(() => {
           menu.enable(true);
-          nav.setRoot(UserPage);
+          nav.setRoot(WalletsPage);
         },(error) => {
           console.log(error);
         })

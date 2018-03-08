@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs/Subscription';
+
 import { AddwalletPage } from '../addwallet/addwallet';
 import { CreatewalletPage } from '../createwallet/createwallet';
-import { Storage } from '@ionic/storage';
+import { ReceivePage } from '../receive/receive';
+import { SendPage } from './../send/send';
+
 import { SystemProvider } from '../../providers/system/system';
 import { ApiProvider } from './../../providers/api/api';
 import { WalletInfo } from './../../data/wallet-info';
-
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-wallets',
@@ -51,11 +54,11 @@ export class WalletsPage {
   }
 
   send(){
-    alert("send")
+    this.navCtrl.push(SendPage);
   }
 
   receive(){
-    alert("receive")
+    this.navCtrl.push(ReceivePage);
   }
 
   addWallet(){

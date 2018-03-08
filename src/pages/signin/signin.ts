@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { UserPage } from '../user/user';
+import { WalletsPage } from '../wallets/wallets';
 
 @Component({
   selector: 'page-sigin',
@@ -34,7 +34,7 @@ export class SigninPage {
           })
           .then(() => {
             this.menu.enable(true);
-            this.navCtrl.setRoot(UserPage);
+            this.navCtrl.setRoot(WalletsPage);
           },(error) => {
             console.log(error);
           });

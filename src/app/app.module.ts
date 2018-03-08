@@ -7,6 +7,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { IonicStorageModule } from '@ionic/storage';
 import { ParticlesModule } from 'angular-particle'
 import { HttpModule } from '@angular/http';
+import { Clipboard } from '@ionic-native/clipboard';
 
 import { MyApp } from './app.component';
 
@@ -62,6 +63,7 @@ import { SystemProvider } from '../providers/system/system';
     TransactionsPage
   ],
   providers: [
+    Clipboard,
     StatusBar,
     SplashScreen,
     Facebook,
