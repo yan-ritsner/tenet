@@ -12,6 +12,7 @@ import { ToastController } from 'ionic-angular';
 })
 export class ReceivePage {
 
+  address: string = null;
   addresses: any;
   moreAddresses: boolean = false;
 
@@ -51,6 +52,36 @@ export class ReceivePage {
         error => {
           if (error.status === 0) {
             this.error = "Could not get addresses"
+          
+          } else if (error.status >= 400) {
+            if (!error.json().errors[0]) {
+              this.error = error;
+            }
+            else {
+              this.error = error.json().errors[0].message;
+            }
+          }
+  
+          this.errorVisible = true;
+        }
+      );
+  }
+
+  newAddress(){
+    let walletName = this.system.getWalletName();
+    if(!walletName) return;
+    let wallet = new WalletInfo(walletName);
+    this.api
+      .getUnusedReceiveAddress(wallet)
+      .subscribe(
+        response => {
+          if (response.status >= 200 && response.status < 400){
+            this.address = response.json();
+          }
+        },
+        error => {
+          if (error.status === 0) {
+            this.error = "Could not get address"
           
           } else if (error.status >= 400) {
             if (!error.json().errors[0]) {

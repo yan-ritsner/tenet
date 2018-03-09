@@ -11,7 +11,17 @@
     <ion-grid class="grid-shrink">
       <ion-row>
         <ion-col>
-                 
+          <ion-list inset *ngIf="address">
+            <ion-list-header>
+              New address
+            </ion-list-header>
+            <ion-item class="text-select">
+              <p style="color:cornflowerblue">{{address}}</p>
+              <button ion-button icon-only clear item-end (click)="doCopy(address)">
+                <ion-icon  name="ios-copy-outline" ></ion-icon>
+              </button>
+            </ion-item>
+          </ion-list>
             <div padding ion-text color="danger" *ngIf="errorVisible">{{error}}</div>
             <ion-list inset>
   
@@ -30,6 +40,13 @@
                 </ion-item>
             </ion-list>
        
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="buttons-block">
+            <button ion-button block (click)="newAddress()">New Address</button>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
