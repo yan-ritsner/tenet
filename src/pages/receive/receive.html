@@ -22,24 +22,24 @@
               </button>
             </ion-item>
           </ion-list>
-            <div padding ion-text color="danger" *ngIf="errorVisible">{{error}}</div>
-            <ion-list inset>
+     
+          <ion-list inset>
   
-                <ion-list-header>
-                  Unused addresses
-                </ion-list-header>
-                <ion-item *ngFor="let a of addresses" class="text-select">
-                  <p>{{a.address}}</p> 
-                  <button ion-button icon-only clear item-end (click)="doCopy(a.address)">
-                    <ion-icon  name="ios-copy-outline" ></ion-icon>
-                  </button>
-                </ion-item>
+            <ion-list-header>
+              Unused addresses
+            </ion-list-header>
+            <ion-item *ngFor="let a of addresses" class="text-select">
+              <p>{{a.address}}</p> 
+              <button ion-button icon-only clear item-end (click)="doCopy(a.address)">
+                <ion-icon  name="ios-copy-outline" ></ion-icon>
+              </button>
+            </ion-item>
 
-                <ion-item *ngIf="moreAddresses">
-                  <p>...</p> 
-                </ion-item>
-            </ion-list>
-       
+            <ion-item *ngIf="moreAddresses">
+              <p>...</p> 
+            </ion-item>
+          </ion-list>
+          <div padding ion-text color="danger" *ngIf="errorVisible">{{error}}</div>
         </ion-col>
       </ion-row>
       <ion-row>

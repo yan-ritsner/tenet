@@ -8,5 +8,57 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-grid class="grid-shrink">
+    <ion-row>
+      <ion-col>
+        <ion-list>
 
+          <ion-item>
+            <ion-label floating>Amount</ion-label>
+            <ion-input [(ngModel)]="amount" type="number" min="0" step="0.01"></ion-input>
+          </ion-item>
+            
+          <ion-item>
+            <ion-label floating>Destination Address</ion-label>
+            <ion-input  [(ngModel)]="address" type="text"></ion-input>
+          </ion-item>
+            
+          <ion-item>
+            <ion-label floating>Wallet Password</ion-label>
+            <ion-input  [(ngModel)]="password" type="password"></ion-input>
+           </ion-item>
+            
+        </ion-list>
+        <ion-list radio-group  [(ngModel)]="fee">
+          <ion-list-header>
+            Transaction Fee
+          </ion-list-header>
+        
+          <ion-item>
+            <ion-label>Low/Slow</ion-label>
+            <ion-radio  value="low" color="danger"></ion-radio>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label>Medium</ion-label>
+            <ion-radio checked="true" value="medium"></ion-radio>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label>High/Fast</ion-label>
+            <ion-radio value="high" color="primary3"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+
+          <div class="buttons-block">
+            <button ion-button block (click)="doSend()">Send</button>
+          </div>
+          
+        </ion-col>
+      </ion-row>
+  </ion-grid>
 </ion-content>
