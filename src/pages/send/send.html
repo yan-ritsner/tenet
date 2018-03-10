@@ -49,13 +49,17 @@
             <ion-radio value="high" color="primary3"></ion-radio>
           </ion-item>
         </ion-list>
+        <div padding ion-text color="danger" *ngIf="errorVisible">{{error}}</div>
       </ion-col>
     </ion-row>
     <ion-row>
         <ion-col>
 
           <div class="buttons-block">
-            <button ion-button block (click)="doSend()">Send</button>
+            <button ion-button block (click)="doSend()" [disabled]="isSending">
+              <ion-spinner *ngIf="isSending"></ion-spinner> 
+              {{!isSending ? 'Send' : 'Sending...'}}
+            </button>
           </div>
           
         </ion-col>

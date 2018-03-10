@@ -28,6 +28,7 @@ export class ReceivePage {
   }
 
   ionViewWillEnter() {
+    this.newAddress();
     this.getAddresses();
   }
 

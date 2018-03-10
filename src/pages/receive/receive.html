@@ -13,7 +13,7 @@
         <ion-col>
           <ion-list inset *ngIf="address">
             <ion-list-header>
-              New address
+              Address
             </ion-list-header>
             <ion-item class="text-select">
               <p style="color:cornflowerblue">{{address}}</p>
@@ -26,7 +26,7 @@
           <ion-list inset>
   
             <ion-list-header>
-              Unused addresses
+              Other unused addresses
             </ion-list-header>
             <ion-item *ngFor="let a of addresses" class="text-select">
               <p>{{a.address}}</p> 
