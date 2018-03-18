@@ -7,11 +7,34 @@
     </ion-header>
   
     <ion-content>
+
       <ion-list>
+        <ion-list-header>
+          Wallets
+        </ion-list-header>
         <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
             <ion-icon [name]="p.icon" color="primary3" item-start></ion-icon>
             <span>{{p.title}}</span>
         </button>
+      </ion-list>
+
+      <ion-list>
+          <ion-list-header>
+              DApps
+          </ion-list-header>
+          <button ion-item>
+              <ion-icon name="ios-mail-outline" color="primary" item-start></ion-icon>
+              <span>Use case #1</span>
+          </button>
+          <button ion-item>
+              <ion-icon name="ios-car-outline" color="primary" item-start></ion-icon>
+              <span>Use case #2</span>
+          </button>
+          <button ion-item>
+              <ion-icon name="ios-home-outline" color="primary" item-start></ion-icon>
+              <span>Use case #3</span>
+          </button>
+          <span ion-item>...</span>
       </ion-list>
     </ion-content>
   
