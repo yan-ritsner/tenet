@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Messanger</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <ion-fab right bottom>
+      <button ion-fab color="primary3">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
+  </ion-content>
+
+<ion-footer>
+    <ion-toolbar color="primary2" no-border-top>
+        <ion-segment [(ngModel)]="tab" color="light">
+          <ion-segment-button value="messages">
+            <ion-icon name="ios-mail-outline"></ion-icon>
+            <label>Messages</label>
+          </ion-segment-button>
+          <ion-segment-button value="contacts">
+            <ion-icon name="ios-contact-outline"></ion-icon>
+            <label>Contacts</label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+</ion-footer>

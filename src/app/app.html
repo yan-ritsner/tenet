@@ -12,7 +12,7 @@
         <ion-list-header>
           Wallets
         </ion-list-header>
-        <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <button ion-item *ngFor="let p of walletPages" (click)="openPage(p)">
             <ion-icon [name]="p.icon" color="primary3" item-start></ion-icon>
             <span>{{p.title}}</span>
         </button>
@@ -22,9 +22,9 @@
           <ion-list-header>
               DApps
           </ion-list-header>
-          <button ion-item>
-              <ion-icon name="ios-mail-outline" color="primary" item-start></ion-icon>
-              <span>Use case #1</span>
+          <button ion-item *ngFor="let p of dappPages" (click)="openPage(p)">
+            <ion-icon [name]="p.icon" color="primary" item-start></ion-icon>
+            <span>{{p.title}}</span>
           </button>
           <button ion-item>
               <ion-icon name="ios-car-outline" color="primary" item-start></ion-icon>

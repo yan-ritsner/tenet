@@ -10,6 +10,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
 import { SendPage } from '../pages/send/send';
 import { ReceivePage } from '../pages/receive/receive';
 import { TransactionsPage } from '../pages/transactions/transactions';
+import { MessangerPage } from '../pages/messanger/messanger';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,12 +22,16 @@ export class MyApp {
   rootPage:any;
 
   // set our app's pages
-  pages = [
+  walletPages = [
       { title: 'User', component: UserPage, icon: "ios-contact-outline" },
       { title: 'Wallets', component: WalletsPage, icon: "ios-briefcase-outline" },
       { title: 'Send', component: SendPage, icon: "ios-arrow-dropright-outline" },
       { title: 'Receive', component: ReceivePage, icon: "ios-arrow-dropleft-outline" },
       { title: 'Transactions', component: TransactionsPage, icon: "ios-swap-outline" },
+  ];
+
+  dappPages = [
+      { title: 'Messanger', component: MessangerPage, icon: "ios-mail-outline" },
   ];
 
   constructor(
