@@ -22,6 +22,8 @@ import { SendPage } from './../pages/send/send';
 import { ReceivePage } from './../pages/receive/receive';
 import { TransactionsPage } from './../pages/transactions/transactions';
 import { MessangerPage } from './../pages/messanger/messanger';
+import { ContactsPage } from './../pages/contacts/contacts';
+import { MessagesPage } from './../pages/messages/messages';
 
 import { ApiProvider } from '../providers/api/api';
 import { SystemProvider } from '../providers/system/system';
@@ -40,7 +42,9 @@ import { SystemProvider } from '../providers/system/system';
     SendPage,
     ReceivePage,
     TransactionsPage,
-    MessangerPage
+    MessangerPage,
+    ContactsPage,
+    MessagesPage
   ],
   imports: [
     ParticlesModule,
@@ -63,7 +67,9 @@ import { SystemProvider } from '../providers/system/system';
     SendPage,
     ReceivePage,
     TransactionsPage,
-    MessangerPage
+    MessangerPage,
+    ContactsPage,
+    MessagesPage
   ],
   providers: [
     Clipboard,

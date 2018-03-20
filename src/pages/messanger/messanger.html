@@ -9,11 +9,9 @@
 </ion-header>
 
 <ion-content padding>
-    <!-- <ion-fab right bottom>
-      <button ion-fab color="primary3">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab> -->
+
+    <page-contacts *ngIf="tab == 'contacts'"></page-contacts>
+    <page-messages *ngIf="tab == 'messages'"></page-messages>
 </ion-content>
 
 <ion-footer>
