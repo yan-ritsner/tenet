@@ -15,7 +15,8 @@ import { TransactionBuilding } from '../../data/transaction-building';
 import { TransactionSending } from '../../data/transaction-sending';
 import { WalletInfo } from '../../data/wallet-info';
 import { FeeEstimation } from '../../data/fee-estimation';
-
+import { ConnectionInfo } from '../../data/connection-info';
+import { ConnectionData } from '../../data/connection-data';
 
 @Injectable()
 export class ApiProvider {
@@ -228,12 +229,53 @@ export class ApiProvider {
         .map((response: Response) => response);
     }
 
-        /**
+    /**
      * Send shutdown signal to the daemon
      */
     shutdownNode(): Observable<any> {
       return this.http
         .post(this.currentApiUrl + '/node/shutdown', '')
+        .map((response: Response) => response);
+    }
+
+    /**
+     * Send messaging start listening command 
+     */
+    messagingStartListening(address: string): Observable<any> {
+      return this.http
+        .post(this.currentApiUrl + '/messaging/startlistening', JSON.stringify({ address : address}), {headers: this.headers})
+        .map((response: Response) => response);
+    }
+
+    /**
+     * Send messaging stop listening command 
+     */
+    messagingStopListening(address: string): Observable<any> {
+      return this.http
+        .post(this.currentApiUrl + '/messaging/stoplistening', JSON.stringify({ address: address}), {headers: this.headers})
+        .map((response: Response) => response);
+    }
+    
+    /**
+     * Send messaging connect command 
+     */
+    messagingConnect(address: string, data: string): Observable<any> {
+      return this.http
+        .post(this.currentApiUrl + '/messaging/connect', JSON.stringify({ address: address, data: data}), {headers: this.headers})
+        .map((response: Response) => response);
+    }
+    
+    /**
+     * Get messaging connection requests
+     */
+    messagingGetConnections(address: string): Observable<any> {
+      let params: URLSearchParams = new URLSearchParams();
+      params.set('address', address);
+
+      return Observable
+        .interval(this.pollingInterval)
+        .startWith(0)
+        .switchMap(() => this.http.get(this.currentApiUrl + '/messaging/getconnections', new RequestOptions({headers: this.headers, search: params})))
         .map((response: Response) => response);
     }
 
