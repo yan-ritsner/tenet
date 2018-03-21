@@ -15,8 +15,6 @@ import { TransactionBuilding } from '../../data/transaction-building';
 import { TransactionSending } from '../../data/transaction-sending';
 import { WalletInfo } from '../../data/wallet-info';
 import { FeeEstimation } from '../../data/fee-estimation';
-import { ConnectionInfo } from '../../data/connection-info';
-import { ConnectionData } from '../../data/connection-data';
 
 @Injectable()
 export class ApiProvider {
