@@ -7,13 +7,15 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class MessangerPage {
 
+  address: string = "myaddress";
   tab: string = "messages";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MessangerPage');
+  doCopy()
+  {
+
   }
 
 }

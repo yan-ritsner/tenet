@@ -9,9 +9,17 @@
 </ion-header>
 
 <ion-content padding>
-
-    <page-contacts *ngIf="tab == 'contacts'"></page-contacts>
-    <page-messages *ngIf="tab == 'messages'"></page-messages>
+  <ion-list inset>
+    <ion-item class="text-select">
+      <p>Your address: </p> 
+      <div color="primary">{{address}}</div>
+      <button ion-button icon-only clear item-end (click)="doCopy()">
+        <ion-icon  name="ios-copy-outline" ></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+  <page-contacts *ngIf="tab == 'contacts'"></page-contacts>
+  <page-messages *ngIf="tab == 'messages'"></page-messages>
 </ion-content>
 
 <ion-footer>
