@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Add Contact</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid class="grid-shrink">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+
+          <ion-item>
+            <ion-label floating>Address</ion-label>
+            <ion-input  [(ngModel)]="address" type="text"></ion-input>
+          </ion-item>
+            
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+
+          <div class="buttons-block">
+            <button ion-button block (click)="addContact()" [disabled]="isSending">
+              <ion-spinner *ngIf="isSending"></ion-spinner> 
+              {{!isSending ? 'Send' : 'Sending...'}}
+            </button>
+          </div>
+          
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>
