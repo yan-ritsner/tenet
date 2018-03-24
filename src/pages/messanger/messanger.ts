@@ -1,8 +1,9 @@
-import { PrivateKey } from 'bitcore-lib';
+import { PrivateKey, PublicKey } from 'bitcore-lib';
 import { Component } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { Clipboard } from '@ionic-native/clipboard';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-messanger',
@@ -10,19 +11,35 @@ import { Clipboard } from '@ionic-native/clipboard';
 })
 export class MessangerPage {
 
-  address: string = "myaddress";
+  key: PrivateKey;
+  pubKey: PublicKey;
+  address: string = "[no address]";
   tab: string = "messages";
 
   constructor(public navCtrl: NavController,    
               public clipboard: Clipboard,
-              public toastCtrl: ToastController) {
+              public toastCtrl: ToastController,
+              public storage: Storage) {
 
   }
 
+  ionViewWillEnter(){
+    let model = this;
+    this.storage.get('messanger-key')
+    .then( function (data) {
 
-  createAddress(){
-    var key = new PrivateKey();
-    var pubKey = key.toPublicKey();
+      model.key = new PrivateKey(data ? data : null)
+      model.pubKey = model.key.toPublicKey();
+      model.address = model.pubKey.toAddress().toString();
+
+      if(!data)
+      {
+        model.storage.set('messanger-key', model.key.toString());
+      }
+
+    }, function (error) {
+      console.log(error);
+    });
   }
 
   doCopy(){

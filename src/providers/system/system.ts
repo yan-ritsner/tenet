@@ -12,6 +12,7 @@ export class SystemProvider {
   private coinName: string;
   private coinUnit: string;
   private network: string;
+  
 
   getWalletPath() {
     return this.walletPath;
