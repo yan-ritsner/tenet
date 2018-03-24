@@ -10,7 +10,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
 import { SendPage } from '../pages/send/send';
 import { ReceivePage } from '../pages/receive/receive';
 import { TransactionsPage } from '../pages/transactions/transactions';
-import { MessangerPage } from '../pages/messanger/messanger';
+import { MessengerPage } from '../pages/messenger/messenger';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +31,7 @@ export class MyApp {
   ];
 
   dappPages = [
-      { title: 'Messanger', component: MessangerPage, icon: "ios-mail-outline" },
+      { title: 'Messenger', component: MessengerPage, icon: "ios-mail-outline" },
   ];
 
   constructor(

@@ -6,10 +6,10 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: 'page-messanger',
-  templateUrl: 'messanger.html',
+  selector: 'page-messenger',
+  templateUrl: 'messenger.html',
 })
-export class MessangerPage {
+export class MessengerPage {
 
   key: PrivateKey;
   pubKey: PublicKey;
@@ -25,7 +25,7 @@ export class MessangerPage {
 
   ionViewWillEnter(){
     let model = this;
-    this.storage.get('messanger-key')
+    this.storage.get('messenger-key')
     .then( function (data) {
 
       model.key = new PrivateKey(data ? data : null)
@@ -34,7 +34,7 @@ export class MessangerPage {
 
       if(!data)
       {
-        model.storage.set('messanger-key', model.key.toString());
+        model.storage.set('messenger-key', model.key.toString());
       }
 
     }, function (error) {

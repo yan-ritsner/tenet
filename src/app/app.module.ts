@@ -21,7 +21,7 @@ import { CreatewalletPage } from './../pages/createwallet/createwallet';
 import { SendPage } from './../pages/send/send';
 import { ReceivePage } from './../pages/receive/receive';
 import { TransactionsPage } from './../pages/transactions/transactions';
-import { MessangerPage } from './../pages/messanger/messanger';
+import { MessengerPage } from './../pages/messenger/messenger';
 import { ContactsPage } from './../pages/contacts/contacts';
 import { MessagesPage } from './../pages/messages/messages';
 import { AddcontactPage } from './../pages/addcontact/addcontact';
@@ -43,7 +43,7 @@ import { SystemProvider } from '../providers/system/system';
     SendPage,
     ReceivePage,
     TransactionsPage,
-    MessangerPage,
+    MessengerPage,
     ContactsPage,
     MessagesPage,
     AddcontactPage
@@ -69,7 +69,7 @@ import { SystemProvider } from '../providers/system/system';
     SendPage,
     ReceivePage,
     TransactionsPage,
-    MessangerPage,
+    MessengerPage,
     ContactsPage,
     MessagesPage,
     AddcontactPage
