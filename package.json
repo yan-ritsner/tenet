@@ -30,6 +30,7 @@
     "angular-particle": "^1.0.4",
     "bitcore-ecies": "^1.0.3",
     "bs58": "^2.0.0",
+    "buffer-compare": "^1.0.0",
     "cordova-android": "^7.0.0",
     "cordova-clipboard": "^1.1.1",
     "cordova-ios": "4.5.4",
