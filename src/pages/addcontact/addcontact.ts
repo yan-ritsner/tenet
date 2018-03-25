@@ -7,9 +7,7 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class AddcontactPage {
 
-
   address : string;
-  isSending: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

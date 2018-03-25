@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+
+import { AddcontactPage } from './../addcontact/addcontact';
 
 @Component({
   selector: 'page-contacts',
@@ -7,12 +9,16 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ContactsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController) {
     
   }
 
   ionViewDidLoad() {
 
+  }
+
+  addContact(){
+    this.navCtrl.push(AddcontactPage);
   }
 
 }
