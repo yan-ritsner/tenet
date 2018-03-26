@@ -15,6 +15,8 @@ import { TransactionBuilding } from '../../data/transaction-building';
 import { TransactionSending } from '../../data/transaction-sending';
 import { WalletInfo } from '../../data/wallet-info';
 import { FeeEstimation } from '../../data/fee-estimation';
+import { ListenData } from '../../data/listen-data';
+import { ConnectData } from '../../data/connect-data';
 
 @Injectable()
 export class ApiProvider {
@@ -239,36 +241,36 @@ export class ApiProvider {
     /**
      * Send messaging start listening command 
      */
-    messagingStartListening(address: string): Observable<any> {
+    messagingStartListening(data: ListenData): Observable<any> {
       return this.http
-        .post(this.currentApiUrl + '/messaging/startlistening', JSON.stringify({ address : address}), {headers: this.headers})
+        .post(this.currentApiUrl + '/messaging/startlistening', JSON.stringify(data), {headers: this.headers})
         .map((response: Response) => response);
     }
 
     /**
      * Send messaging stop listening command 
      */
-    messagingStopListening(address: string): Observable<any> {
+    messagingStopListening(data: ListenData): Observable<any> {
       return this.http
-        .post(this.currentApiUrl + '/messaging/stoplistening', JSON.stringify({ address: address}), {headers: this.headers})
+        .post(this.currentApiUrl + '/messaging/stoplistening', JSON.stringify(data), {headers: this.headers})
         .map((response: Response) => response);
     }
     
     /**
      * Send messaging connect command 
      */
-    messagingConnect(address: string, data: string): Observable<any> {
+    messagingConnect(data: ConnectData): Observable<any> {
       return this.http
-        .post(this.currentApiUrl + '/messaging/connect', JSON.stringify({ address: address, data: data}), {headers: this.headers})
+        .post(this.currentApiUrl + '/messaging/connect', JSON.stringify(data), {headers: this.headers})
         .map((response: Response) => response);
     }
     
     /**
      * Get messaging connection requests
      */
-    messagingGetConnections(address: string): Observable<any> {
+    messagingGetConnections(data: ListenData): Observable<any> {
       let params: URLSearchParams = new URLSearchParams();
-      params.set('address', address);
+      params.set('address', data.address);
 
       return Observable
         .interval(this.pollingInterval)
