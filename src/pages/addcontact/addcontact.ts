@@ -50,7 +50,7 @@ export class AddcontactPage {
           console.log(error);
          
           if (error.status === 0) {
-            this.error = "Could not send transaction"
+            this.error = "Could not send connect request"
           
           } else if (error.status >= 400) {
             if (!error.json().errors[0]) {
