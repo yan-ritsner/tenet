@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ApiProvider } from './../../providers/api/api';
 import { Storage } from '@ionic/storage';
 import { ConnectData } from './../../data/connect-data';
+import { ContactData } from './../../data/contact-data';
 
 @Component({
   selector: 'page-addcontact',
@@ -17,21 +18,32 @@ export class AddcontactPage {
   errorVisible: boolean = false;
 
   constructor(public navCtrl: NavController,    
+              public navParams: NavParams,
               public api: ApiProvider,
               public storage: Storage) {
   }
 
   addContact(){
+    let model = this;
     let connectData = new ConnectData(this.address, this.data);
     this.api
       .messagingConnect(connectData)
       .subscribe(
         response => {
           if (response.status >= 200 && response.status < 400){
-            
-            //TODO:addcontact
+            model.storage.get('contacts')
+            .then((data) => {
+              let contact = new ContactData(model.address,model.data);
+              if(!data) data = {};
+              data[model.address] = contact;
+              model.storage.set('contacts',data);
+              model.navParams.data.push(contact);
 
-            this.navCtrl.pop();
+            }, (error) => {
+              console.log(error);
+            });
+
+            model.navCtrl.pop();
           }
         },
         error => {

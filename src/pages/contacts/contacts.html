@@ -1,4 +1,16 @@
 <ion-content padding>
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-list inset>
+              <ion-item *ngFor="let c of contacts" class="text-select">
+                <p>{{c.address}}</p> 
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
     <ion-fab right bottom>
       <button ion-fab color="primary3" (click)="addContact()">
         <ion-icon name="add"></ion-icon>
