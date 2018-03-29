@@ -11,6 +11,7 @@ import { ContactData } from './../../data/contact-data';
 export class ContactsPage implements OnInit {
 
   contacts: Array<ContactData> = [];
+  contactActive: ContactData = null;
 
   constructor(public navCtrl: NavController,
               public storage: Storage) {
@@ -37,4 +38,32 @@ export class ContactsPage implements OnInit {
     this.navCtrl.push(AddcontactPage,this.contacts);
   }
 
+
+  deleteContact(contact: ContactData){
+   let index = this.contacts.indexOf(contact);
+   this.contacts.splice(index,1);
+
+   let model = this;
+   this.storage.get('contacts')
+    .then( function (data) {
+      if(data){
+        delete data[contact.address];
+        model.storage.set('contacts',data);
+      }
+    }, function (error) {
+      console.log(error);
+    });
+  }
+
+  activateContact(contact: ContactData){
+    this.contactActive = contact;
+  }
+
+  deactivateContact(contact: ContactData){
+    this.contactActive = null;
+  }
+
+  infoContact(contact: ContactData){
+
+  }
 }

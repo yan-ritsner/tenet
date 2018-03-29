@@ -3,8 +3,14 @@
         <ion-row>
           <ion-col>
             <ion-list inset>
-              <ion-item *ngFor="let c of contacts" class="text-select">
+              <ion-item *ngFor="let c of contacts" class="text-select" (press)="activateContact(c)">
                 <p>{{c.address}}</p> 
+                <button ion-button icon-only clear item-end color="primary3" *ngIf="c === contactActive" (click)="infoContact(c)">
+                  <ion-icon  name="ios-information-circle-outline"></ion-icon>
+                </button>
+                <button ion-button icon-only clear item-end color="primary3" *ngIf="c === contactActive" (click)="deleteContact(c)">
+                  <ion-icon name="ios-close-circle-outline"></ion-icon>
+                </button>
               </ion-item>
             </ion-list>
           </ion-col>
