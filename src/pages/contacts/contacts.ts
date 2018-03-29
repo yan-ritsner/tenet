@@ -56,10 +56,13 @@ export class ContactsPage implements OnInit {
   }
 
   activateContact(contact: ContactData){
-    this.contactActive = contact;
+    if(this.contactActive == contact)
+      this.contactActive = null;
+    else
+      this.contactActive = contact;
   }
 
-  deactivateContact(contact: ContactData){
+  deactivateContact(){
     this.contactActive = null;
   }
 
