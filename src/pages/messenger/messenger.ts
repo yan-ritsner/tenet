@@ -14,7 +14,7 @@ export class MessengerPage {
   key: PrivateKey;
   pubKey: PublicKey;
   address: string = "[no address]";
-  tab: string = "messages";
+  tab: string = "contacts";
 
   constructor(public navCtrl: NavController,    
               public clipboard: Clipboard,

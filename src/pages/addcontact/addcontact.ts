@@ -11,6 +11,7 @@ import { ContactData } from './../../data/contact-data';
 })
 export class AddcontactPage {
 
+  name: string;
   address: string;
   data:string = "Test";
 
@@ -33,7 +34,7 @@ export class AddcontactPage {
           if (response.status >= 200 && response.status < 400){
             model.storage.get('contacts')
             .then((data) => {
-              let contact = new ContactData(model.address,model.data);
+              let contact = new ContactData(model.name, model.address, model.data);
               if(!data) data = {};
               data[model.address] = contact;
               model.storage.set('contacts',data);
