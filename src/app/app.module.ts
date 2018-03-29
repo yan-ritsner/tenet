@@ -25,6 +25,7 @@ import { MessengerPage } from './../pages/messenger/messenger';
 import { ContactsPage } from './../pages/contacts/contacts';
 import { MessagesPage } from './../pages/messages/messages';
 import { AddcontactPage } from './../pages/addcontact/addcontact';
+import { EditcontactPage } from './../pages/editcontact/editcontact';
 
 import { ApiProvider } from '../providers/api/api';
 import { SystemProvider } from '../providers/system/system';
@@ -46,7 +47,8 @@ import { SystemProvider } from '../providers/system/system';
     MessengerPage,
     ContactsPage,
     MessagesPage,
-    AddcontactPage
+    AddcontactPage,
+    EditcontactPage
   ],
   imports: [
     ParticlesModule,
@@ -72,7 +74,8 @@ import { SystemProvider } from '../providers/system/system';
     MessengerPage,
     ContactsPage,
     MessagesPage,
-    AddcontactPage
+    AddcontactPage,
+    EditcontactPage
   ],
   providers: [
     Clipboard,

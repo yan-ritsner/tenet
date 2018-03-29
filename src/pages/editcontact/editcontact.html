@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Edit Contact</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-grid class="grid-shrink">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+  
+            <ion-item>
+              <ion-label floating>Display Name</ion-label>
+              <ion-input [(ngModel)]="name" type="text"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              Address: {{contact.address}}
+            </ion-item>
+              
+          </ion-list>
+  
+          <div padding ion-text color="danger" *ngIf="errorVisible">{{error}}</div>
+          
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>
+  
+            <div class="buttons-block">
+              <button ion-button block (click)="saveContact()">
+                Save Contact
+              </button>
+            </div>
+            
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-content>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AddcontactPage } from './../addcontact/addcontact';
+import { EditcontactPage } from './../editcontact/editcontact';
 import { ContactData } from './../../data/contact-data';
 
 @Component({
@@ -67,6 +68,6 @@ export class ContactsPage implements OnInit {
   }
 
   infoContact(contact: ContactData){
-
+    this.navCtrl.push(EditcontactPage,contact);
   }
 }
