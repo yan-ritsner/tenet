@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { AddcontactPage } from './../addcontact/addcontact';
 import { EditcontactPage } from './../editcontact/editcontact';
 import { ContactData } from './../../data/contact-data';
+import { ContactStatus } from '../../data/contact-status';
 
 @Component({
   selector: 'page-contacts',
@@ -26,7 +27,9 @@ export class ContactsPage implements OnInit {
         var keys = Object.keys(data);
         for(let i= 0; i < keys.length; i++)
         {
-          let contact  = data[keys[i]];
+          let contactData  = data[keys[i]];
+          let contact = new ContactData(contactData.name, contactData.address, contactData.data);
+          contact.status = contact.status ? contact.status : ContactStatus.Initiated;
           model.contacts.push(contact);
         }
       }
@@ -69,5 +72,28 @@ export class ContactsPage implements OnInit {
 
   infoContact(contact: ContactData){
     this.navCtrl.push(EditcontactPage,contact);
+  }
+
+  iconForContact(contact: ContactData){
+    switch(contact.status)
+    {
+      case ContactStatus.Initiated:
+        return "ios-contact-outline";
+      case ContactStatus.Requested:
+        return "ios-help-circle-outline";
+      case ContactStatus.Connected:
+        return "ios-contact-outline";
+    }
+  }
+  colorForContact(contact: ContactData){
+    switch(contact.status)
+    {
+      case ContactStatus.Initiated:
+        return "secondary";
+      case ContactStatus.Requested:
+        return "secondary";
+      case ContactStatus.Connected:
+        return "primary";
+    }
   }
 }

@@ -1,3 +1,5 @@
+import { ContactStatus } from "./contact-status";
+
 export class ContactData {
 
     constructor(name: string, address: string, data: string) {
@@ -5,9 +7,10 @@ export class ContactData {
       this.address = address;
       this.data = data;
     }
-    
+
     public name: string;
     public address: string;
     public data: string;
+    public status: ContactStatus;
   }
   
