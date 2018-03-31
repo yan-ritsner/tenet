@@ -4,6 +4,7 @@ import { ApiProvider } from './../../providers/api/api';
 import { Storage } from '@ionic/storage';
 import { ConnectData } from './../../data/connect-data';
 import { ContactData } from './../../data/contact-data';
+import { ContactStatus } from '../../data/contact-status';
 
 @Component({
   selector: 'page-addcontact',
@@ -35,6 +36,7 @@ export class AddcontactPage {
             model.storage.get('contacts')
             .then((data) => {
               let contact = new ContactData(model.name, model.address, model.data);
+              contact.status  = ContactStatus.Initiated;
               if(!data) data = {};
               data[model.address] = contact;
               model.storage.set('contacts',data);
