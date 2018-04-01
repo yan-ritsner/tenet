@@ -1,3 +1,4 @@
+import { ListenerProvider } from './../../providers/listener/listener';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -16,10 +17,25 @@ export class ContactsPage implements OnInit {
   contactActive: ContactData = null;
 
   constructor(public navCtrl: NavController,
-              public storage: Storage) {
+              public storage: Storage,
+              public listener: ListenerProvider) {
   }
 
   ngOnInit(){
+    this.getContactRequest();
+    this.loadContacts();
+  }
+
+  getContactRequest(){
+    this.listener.getUpdates().subscribe(u=>this.contactRequest(u));
+    var connections = this.listener.getConnections();
+    for(var i=0; i<connections.length; i++)
+    {
+        this.contactRequest(connections[i]);
+    }
+  }
+
+  loadContacts(){
     let model = this;
     this.storage.get('contacts')
     .then( function (data) {
@@ -28,8 +44,7 @@ export class ContactsPage implements OnInit {
         for(let i= 0; i < keys.length; i++)
         {
           let contactData  = data[keys[i]];
-          let contact = new ContactData(contactData.name, contactData.address, contactData.data);
-          contact.status = contact.status ? contact.status : ContactStatus.Initiated;
+          let contact = new ContactData(contactData.name, contactData.address, contactData.data, contactData.status);
           model.contacts.push(contact);
         }
       }
@@ -38,10 +53,24 @@ export class ContactsPage implements OnInit {
     });
   }
 
+  contactRequest(data){
+    let contact = new ContactData("New Contact Request", "New Address", data, ContactStatus.Requested);
+    this.contacts.push(contact);
+
+    let model = this;
+    model.storage.get('contacts')
+    .then((data) => {
+      if(!data) data = {};
+      data[contact.address] = contact;
+      model.storage.set('contacts',data);
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
   addContact(){
     this.navCtrl.push(AddcontactPage,this.contacts);
   }
-
 
   deleteContact(contact: ContactData){
    let index = this.contacts.indexOf(contact);

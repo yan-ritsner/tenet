@@ -1,4 +1,4 @@
-import { ListenData } from './../../data/listen-data';
+import { ListenerProvider } from './../../providers/listener/listener';
 import { PrivateKey, PublicKey } from 'bitcore-lib';
 import { Component } from '@angular/core';
 import { ToastController } from 'ionic-angular';
@@ -6,7 +6,6 @@ import { NavController } from 'ionic-angular';
 import { Clipboard } from '@ionic-native/clipboard';
 import { Storage } from '@ionic/storage';
 import { ApiProvider } from '../../providers/api/api';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-messenger',
@@ -18,7 +17,6 @@ export class MessengerPage {
   pubKey: PublicKey;
   address: string = "[no address]";
   tab: string = "contacts";
-  listenSubs : Subscription = null;
 
   errorVisible: boolean = false;
   error: string = null;
@@ -27,7 +25,8 @@ export class MessengerPage {
               public clipboard: Clipboard,
               public toastCtrl: ToastController,
               public storage: Storage,
-              public api: ApiProvider) {
+              public api: ApiProvider,
+              public listener: ListenerProvider) {
 
   }
 
@@ -44,59 +43,24 @@ export class MessengerPage {
       {
         model.storage.set('messenger-key', model.key.toString());
       }
-      //model.startListening();
+
+      model.startListening();
+
     }, function (error) {
       console.log(error);
     });
   }
 
   ionViewWillUnload(){
-    //this.stopListening();
+    this.stopListening();
   }
 
   startListening(){
-    this.stopListening();
-
-    let listenData = new ListenData(this.address);
-
-    this.api.messagingStartListening(listenData);
-
-    let listenObs = this.api.messagingGetConnections(listenData);
-    this.listenSubs = listenObs.subscribe(
-      response => {
-        if (response.status >= 200 && response.status < 400) {
-          //let connections = response.json();
-
-
-          this.errorVisible = false;
-        }
-      },
-      error => {
-        
-        if (error.status === 0) {
-          this.error = "Could not get connections"
-        
-        } else if (error.status >= 400) {
-          if (!error.json().errors[0]) {
-            this.error = error;
-          }
-          else {
-            this.error = error.json().errors[0].message;
-          }
-        }
-
-        this.errorVisible = true;
-      }
-    );
-    
+    this.listener.startListening(this.address);
   }
 
   stopListening(){
-    if(this.listenSubs == null) return;
-    this.listenSubs.unsubscribe();
-
-    let listenData = new ListenData(this.address);
-    this.api.messagingStopListening(listenData);
+    this.listener.stopListening();
   }
 
   doCopy(){

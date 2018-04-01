@@ -29,6 +29,7 @@ import { EditcontactPage } from './../pages/editcontact/editcontact';
 
 import { ApiProvider } from '../providers/api/api';
 import { SystemProvider } from '../providers/system/system';
+import { ListenerProvider } from '../providers/listener/listener';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { SystemProvider } from '../providers/system/system';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     
     ApiProvider,
-    SystemProvider
+    SystemProvider,
+    ListenerProvider
   ]
 })
 export class AppModule {}

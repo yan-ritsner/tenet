@@ -35,8 +35,7 @@ export class AddcontactPage {
           if (response.status >= 200 && response.status < 400){
             model.storage.get('contacts')
             .then((data) => {
-              let contact = new ContactData(model.name, model.address, model.data);
-              contact.status  = ContactStatus.Initiated;
+              let contact = new ContactData(model.name, model.address, model.data, ContactStatus.Initiated);
               if(!data) data = {};
               data[model.address] = contact;
               model.storage.set('contacts',data);

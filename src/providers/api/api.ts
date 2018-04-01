@@ -275,7 +275,7 @@ export class ApiProvider {
       return Observable
         .interval(this.pollingInterval)
         .startWith(0)
-        .switchMap(() => this.http.get(this.currentApiUrl + '/messaging/getconnections', new RequestOptions({headers: this.headers, search: params})))
+        .switchMap(() => this.http.get(this.currentApiUrl + '/messaging/connections', new RequestOptions({headers: this.headers, search: params})))
         .map((response: Response) => response);
     }
 
