@@ -6,6 +6,9 @@ export class SystemProvider {
 
   constructor() { }
 
+  private username: string;
+  private messagingAddress: string;
+
   private walletPath: string;
   private currentWalletName: string;
   private coinType: number;
@@ -13,6 +16,14 @@ export class SystemProvider {
   private coinUnit: string;
   private network: string;
   
+
+  getUsername(){
+    return this.username;
+  }
+
+  getMessagingAddress(){
+    return this.messagingAddress;
+  }
 
   getWalletPath() {
     return this.walletPath;
@@ -61,4 +72,13 @@ export class SystemProvider {
   setCoinUnit(coinUnit: string) {
     this.coinUnit = coinUnit;
   }
+
+  setUsername(username: string){
+    return this.username = username;
+  }
+
+  setMessagingAddress(messagingAddress: string){
+    return this.messagingAddress = messagingAddress;
+  }
+  
 }

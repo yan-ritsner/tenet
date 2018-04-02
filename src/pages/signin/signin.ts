@@ -1,3 +1,4 @@
+import { SystemProvider } from './../../providers/system/system';
 import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -16,7 +17,8 @@ export class SigninPage {
   constructor(
     public menu: MenuController,
     public navCtrl: NavController, 
-    public storage: Storage) {
+    public storage: Storage,
+    public system: SystemProvider) {
   }
 
   doSignin(){
@@ -26,6 +28,7 @@ export class SigninPage {
       if(data && 
          data[this.email] && 
          data[this.email].password == this.password){
+          this.system.setUsername(data[this.email].name)
           this.storage.set('user',
           {
             isfb: false,

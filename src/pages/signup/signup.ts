@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { WalletsPage } from '../wallets/wallets';
+import { SystemProvider } from '../../providers/system/system';
 
 @Component({
   selector: 'page-signup',
@@ -16,7 +17,8 @@ export class SignupPage {
   constructor(
     public menu: MenuController,
     public navCtrl: NavController, 
-    public storage: Storage) {
+    public storage: Storage,
+    public system: SystemProvider) {
   }
 
   doSignup(){
@@ -46,5 +48,7 @@ export class SignupPage {
     },(error) => {
       console.log(error);
     });
+
+    this.system.setUsername(this.name);
   }
 }

@@ -5,6 +5,7 @@ import { NavController, MenuController } from 'ionic-angular';
 import { WalletsPage } from '../wallets/wallets';
 import { SignupPage } from '../signup/signup';
 import { SigninPage } from '../signin/signin';
+import { SystemProvider } from '../../providers/system/system';
 
 @Component({
   selector: 'page-login',
@@ -22,7 +23,8 @@ export class LoginPage implements OnInit  {
     public menu: MenuController,
     public navCtrl: NavController,
     public fb: Facebook,
-    public storage: Storage) {
+    public storage: Storage,
+    public system: SystemProvider) {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
@@ -89,7 +91,9 @@ export class LoginPage implements OnInit  {
           nav.setRoot(WalletsPage);
         },(error) => {
           console.log(error);
-        })
+        });
+
+        this.system.setUsername(user.name);
       })
     }, (error) => {
       console.log(error);

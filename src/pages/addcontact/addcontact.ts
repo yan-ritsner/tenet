@@ -22,7 +22,7 @@ export class AddcontactPage {
   constructor(public navCtrl: NavController,    
               public navParams: NavParams,
               public api: ApiProvider,
-              public storage: Storage) {
+              public storage: Storage){
   }
 
   addContact(){

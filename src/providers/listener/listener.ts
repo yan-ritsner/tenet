@@ -50,6 +50,7 @@ export class ListenerProvider {
   {
     if(this.subs == null) return;
     this.subs.unsubscribe();
+    this.subs = null;
     let listenData = new ListenData(this.address);
     this.api.messagingStopListening(listenData).subscribe(response => {
       if (response.status >= 200 && response.status < 400) {
