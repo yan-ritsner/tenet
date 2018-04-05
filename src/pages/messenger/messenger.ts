@@ -6,6 +6,7 @@ import { NavController } from 'ionic-angular';
 import { Clipboard } from '@ionic-native/clipboard';
 import { Storage } from '@ionic/storage';
 import { ApiProvider } from '../../providers/api/api';
+import { SystemProvider } from '../../providers/system/system';
 
 @Component({
   selector: 'page-messenger',
@@ -26,7 +27,8 @@ export class MessengerPage {
               public toastCtrl: ToastController,
               public storage: Storage,
               public api: ApiProvider,
-              public listener: ListenerProvider) {
+              public listener: ListenerProvider,
+              public system: SystemProvider) {
 
   }
 
@@ -45,6 +47,10 @@ export class MessengerPage {
       }
 
       model.startListening();
+
+      model.system.setAddress(model.address);
+      model.system.setKey(model.key);
+      model.system.setPubKey(model.pubKey);
 
     }, function (error) {
       console.log(error);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { PrivateKey, PublicKey } from 'bitcore-lib';
 
 @Injectable()
 export class SystemProvider {
@@ -7,7 +7,6 @@ export class SystemProvider {
   constructor() { }
 
   private username: string;
-  private messagingAddress: string;
 
   private walletPath: string;
   private currentWalletName: string;
@@ -16,13 +15,16 @@ export class SystemProvider {
   private coinUnit: string;
   private network: string;
   
+  private key: PrivateKey;
+  private pubKey: PublicKey;
+  private address: string;
 
   getUsername(){
     return this.username;
   }
 
-  getMessagingAddress(){
-    return this.messagingAddress;
+  setUsername(username: string){
+    return this.username = username;
   }
 
   getWalletPath() {
@@ -73,12 +75,27 @@ export class SystemProvider {
     this.coinUnit = coinUnit;
   }
 
-  setUsername(username: string){
-    return this.username = username;
+  getAddress(){
+    return this.address;
   }
 
-  setMessagingAddress(messagingAddress: string){
-    return this.messagingAddress = messagingAddress;
+  setAddress(address: string){
+    return this.address = address;
   }
   
+  getKey(){
+    return this.key;
+  }
+
+  setKey(key: PrivateKey){
+    return this.key = key;
+  }
+
+  getPubKey(){
+    return this.key;
+  }
+
+  setPubKey(pubKey: PublicKey){
+    return this.pubKey = pubKey;
+  }
 }
