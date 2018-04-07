@@ -5,6 +5,8 @@ import { Storage } from '@ionic/storage';
 import { ConnectData } from './../../data/connect-data';
 import { ContactData } from './../../data/contact-data';
 import { ContactStatus } from '../../data/contact-status';
+import { SystemProvider } from '../../providers/system/system';
+import * as Message from 'bitcore-message';
 
 @Component({
   selector: 'page-addcontact',
@@ -14,19 +16,31 @@ export class AddcontactPage {
 
   name: string;
   address: string;
-  data:string = "Test";
-
+  data: string;
+  
   error: string;
   errorVisible: boolean = false;
 
   constructor(public navCtrl: NavController,    
               public navParams: NavParams,
               public api: ApiProvider,
-              public storage: Storage){
+              public storage: Storage,
+              public system: SystemProvider){
   }
 
   addContact(){
     let model = this;
+    let messageData = JSON.stringify({
+      username: this.system.getUsername(),
+      pubkey: this.system.getPubKey().toString(),
+    });
+    let message = new Message(messageData);
+    var key = this.system.getKey();
+    var signature = message.sign(key);
+    this.data = JSON.stringify({
+      message: message,
+      signature : signature
+    });
     let connectData = new ConnectData(this.address, this.data);
     this.api
       .messagingConnect(connectData)
