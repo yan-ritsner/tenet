@@ -24,8 +24,9 @@ export class ContactsPage implements OnInit {
   }
 
   ngOnInit(){
-    this.getContactRequest();
-    this.loadContacts();
+    //this.getContactRequest();
+    //this.loadContacts();
+    this.testContacts();
   }
 
   getContactRequest(){
@@ -35,6 +36,15 @@ export class ContactsPage implements OnInit {
     {
         this.contactRequest(connections[i]);
     }
+  }
+
+  testContacts(){
+    let contact1 = new ContactData("Contact 1", "Address 1", "Data 1", ContactStatus.Requested);
+    let contact2 = new ContactData("Contact 2", "Address 2", "Data 1", ContactStatus.Initiated);
+    let contact3 = new ContactData("Contact 3", "Address 3", "Data 1", ContactStatus.Connected);
+    this.contacts.push(contact1);
+    this.contacts.push(contact2);
+    this.contacts.push(contact3);
   }
 
   loadContacts(){
