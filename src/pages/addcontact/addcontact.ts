@@ -35,10 +35,10 @@ export class AddcontactPage {
       pubkey: this.system.getPubKey().toString(),
     });
     let message = new Message(messageData);
-    var key = this.system.getKey();
-    var signature = message.sign(key);
+    let key = this.system.getKey();
+    let signature = message.sign(key);
     this.data = JSON.stringify({
-      message: message,
+      message: messageData,
       signature : signature
     });
     let connectData = new ConnectData(this.address, this.data);

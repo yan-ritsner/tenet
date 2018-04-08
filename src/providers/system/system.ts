@@ -92,7 +92,7 @@ export class SystemProvider {
   }
 
   getPubKey(){
-    return this.key;
+    return this.pubKey;
   }
 
   setPubKey(pubKey: PublicKey){

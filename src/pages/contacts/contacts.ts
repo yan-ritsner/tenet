@@ -6,6 +6,8 @@ import { AddcontactPage } from './../addcontact/addcontact';
 import { EditcontactPage } from './../editcontact/editcontact';
 import { ContactData } from './../../data/contact-data';
 import { ContactStatus } from '../../data/contact-status';
+import * as Message from 'bitcore-message';
+import { PublicKey } from 'bitcore-lib';
 
 @Component({
   selector: 'page-contacts',
@@ -54,6 +56,17 @@ export class ContactsPage implements OnInit {
   }
 
   contactRequest(data){
+    let connectData  = JSON.parse(data);
+    let messageData = connectData.message;
+    let signature = connectData.signature;
+    let message = new Message(messageData);
+    let messageObj = JSON.parse(messageData);
+    let pubKey = PublicKey.fromString(messageObj.pubkey)
+    let address = pubKey.toAddress().toString();
+    let verified = message.verify(address,signature);
+
+    if(!verified) return;
+
     let contact = new ContactData("New Contact Request", "New Address", data, ContactStatus.Requested);
     this.contacts.push(contact);
 
