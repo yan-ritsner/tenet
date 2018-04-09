@@ -8,6 +8,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ParticlesModule } from 'angular-particle'
 import { HttpModule } from '@angular/http';
 import { Clipboard } from '@ionic-native/clipboard';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
 
@@ -26,6 +27,7 @@ import { ContactsPage } from './../pages/contacts/contacts';
 import { MessagesPage } from './../pages/messages/messages';
 import { AddcontactPage } from './../pages/addcontact/addcontact';
 import { EditcontactPage } from './../pages/editcontact/editcontact';
+import { MapPage } from './../pages/map/map';
 
 import { ApiProvider } from '../providers/api/api';
 import { SystemProvider } from '../providers/system/system';
@@ -49,7 +51,8 @@ import { ListenerProvider } from '../providers/listener/listener';
     ContactsPage,
     MessagesPage,
     AddcontactPage,
-    EditcontactPage
+    EditcontactPage,
+    MapPage
   ],
   imports: [
     ParticlesModule,
@@ -76,13 +79,15 @@ import { ListenerProvider } from '../providers/listener/listener';
     ContactsPage,
     MessagesPage,
     AddcontactPage,
-    EditcontactPage
+    EditcontactPage,
+    MapPage
   ],
   providers: [
     Clipboard,
     StatusBar,
     SplashScreen,
     Facebook,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     
     ApiProvider,
