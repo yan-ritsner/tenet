@@ -1,17 +1,17 @@
+import { PublicKey } from 'bitcore-lib';
 import { ContactStatus } from "./contact-status";
 
 export class ContactData {
 
-    constructor(name: string, address: string, data: string, status: ContactStatus) {
+    constructor(name: string, address: string, status: ContactStatus) {
       this.name = name;
       this.address = address;
-      this.data = data;
-      this.status = status != null ? status : ContactStatus.Initiated;
+      this.status = status;
     }
 
     public name: string;
     public address: string;
-    public data: string;
     public status: ContactStatus;
+    public pubKey: PublicKey;
   }
   

@@ -1,3 +1,4 @@
+import { SystemProvider } from './../providers/system/system';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -37,7 +38,8 @@ export class MyApp {
     public menu: MenuController,
     public storage: Storage,
     public splashScreen: SplashScreen,
-    public statusBar: StatusBar) {
+    public statusBar: StatusBar,
+    public system: SystemProvider) {
 
     menu.enable(false);
 
@@ -47,7 +49,7 @@ export class MyApp {
       this.storage.get('user')
       .then( function (data) {
         if(data){
-  
+          system.setUsername(data.name);
           model.showWalletsPage();
         }
         else{

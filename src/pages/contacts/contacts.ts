@@ -16,6 +16,7 @@ import { PublicKey } from 'bitcore-lib';
 export class ContactsPage implements OnInit {
 
   contacts: Array<ContactData> = [];
+  contactsDict : any = {};
   contactActive: ContactData = null;
 
   constructor(public navCtrl: NavController,
@@ -24,9 +25,9 @@ export class ContactsPage implements OnInit {
   }
 
   ngOnInit(){
-    //this.getContactRequest();
-    //this.loadContacts();
-    this.testContacts();
+    this.getContactRequest();
+    this.loadContacts();
+    //this.testContacts();
   }
 
   getContactRequest(){
@@ -38,14 +39,14 @@ export class ContactsPage implements OnInit {
     }
   }
 
-  testContacts(){
-    let contact1 = new ContactData("Contact 1", "Address 1", "Data 1", ContactStatus.Requested);
-    let contact2 = new ContactData("Contact 2", "Address 2", "Data 1", ContactStatus.Initiated);
-    let contact3 = new ContactData("Contact 3", "Address 3", "Data 1", ContactStatus.Connected);
-    this.contacts.push(contact1);
-    this.contacts.push(contact2);
-    this.contacts.push(contact3);
-  }
+  // testContacts(){
+  //   let contact1 = new ContactData("Contact 1", "Address 1", ContactStatus.Requested);
+  //   let contact2 = new ContactData("Contact 2", "Address 2", ContactStatus.Initiated);
+  //   let contact3 = new ContactData("Contact 3", "Address 3", ContactStatus.Connected);
+  //   this.contacts.push(contact1);
+  //   this.contacts.push(contact2);
+  //   this.contacts.push(contact3);
+  // }
 
   loadContacts(){
     let model = this;
@@ -56,7 +57,9 @@ export class ContactsPage implements OnInit {
         for(let i= 0; i < keys.length; i++)
         {
           let contactData  = data[keys[i]];
-          let contact = new ContactData(contactData.name, contactData.address, contactData.data, contactData.status);
+          let contact = new ContactData(contactData.name, contactData.address, contactData.status);
+          if(contactData.pubKey) contact.pubKey = contactData.pubKey;
+          model.contactsDict[keys[i]] = contact;
           model.contacts.push(contact);
         }
       }
@@ -73,12 +76,18 @@ export class ContactsPage implements OnInit {
     let messageObj = JSON.parse(messageData);
     let pubKey = PublicKey.fromString(messageObj.pubkey)
     let address = pubKey.toAddress().toString();
+    let name  =  messageObj.username ? messageObj.username : "New Contact Request";
     let verified = message.verify(address,signature);
 
-    if(!verified) return;
+    if(!verified){
+      console.error("Contact was not verified");
+      return;
+    }
 
-    let contact = new ContactData("New Contact Request", "New Address", data, ContactStatus.Requested);
+    let contact = new ContactData(name, address, ContactStatus.Requested);
+    contact.pubKey = pubKey;
     this.contacts.push(contact);
+    this.contacts[contact.address] = contact;
 
     let model = this;
     model.storage.get('contacts')
@@ -92,7 +101,7 @@ export class ContactsPage implements OnInit {
   }
 
   addContact(){
-    this.navCtrl.push(AddcontactPage,this.contacts);
+    this.navCtrl.push(AddcontactPage, this);
   }
 
   deleteContact(contact: ContactData){

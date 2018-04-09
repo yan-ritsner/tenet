@@ -29,6 +29,7 @@ export class AddcontactPage {
   }
 
   addContact(){
+    console.log(this.system.getUsername());
     let model = this;
     let messageData = JSON.stringify({
       username: this.system.getUsername(),
@@ -49,12 +50,12 @@ export class AddcontactPage {
           if (response.status >= 200 && response.status < 400){
             model.storage.get('contacts')
             .then((data) => {
-              let contact = new ContactData(model.name, model.address, model.data, ContactStatus.Initiated);
+              let contact = new ContactData(model.name, model.address, ContactStatus.Initiated);
               if(!data) data = {};
               data[model.address] = contact;
               model.storage.set('contacts',data);
-              model.navParams.data.push(contact);
-
+              model.navParams.data.contactsDict[model.address]=contact;
+              model.navParams.data.contacts.push(contact);
             }, (error) => {
               console.log(error);
             });
