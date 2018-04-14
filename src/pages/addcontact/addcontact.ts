@@ -16,7 +16,6 @@ export class AddcontactPage {
 
   name: string;
   address: string;
-  data: string;
   
   error: string;
   errorVisible: boolean = false;
@@ -29,20 +28,20 @@ export class AddcontactPage {
   }
 
   addContact(){
-    console.log(this.system.getUsername());
     let model = this;
     let messageData = JSON.stringify({
       username: this.system.getUsername(),
-      pubkey: this.system.getPubKey().toString(),
+      pubKey: this.system.getPubKey().toString(),
     });
     let message = new Message(messageData);
     let key = this.system.getKey();
     let signature = message.sign(key);
-    this.data = JSON.stringify({
+    let data = JSON.stringify({
       message: messageData,
       signature : signature
     });
-    let connectData = new ConnectData(this.address, this.data);
+    let connectData = new ConnectData(this.address, data);
+
     this.api
       .messagingConnect(connectData)
       .subscribe(
@@ -50,12 +49,18 @@ export class AddcontactPage {
           if (response.status >= 200 && response.status < 400){
             model.storage.get('contacts')
             .then((data) => {
-              let contact = new ContactData(model.name, model.address, ContactStatus.Initiated);
+
+              let name = model.name ? model.name : "New Contact";
+              let contact = new ContactData(name, model.address, ContactStatus.Initiated);
               if(!data) data = {};
+
               data[model.address] = contact;
               model.storage.set('contacts',data);
-              model.navParams.data.contactsDict[model.address]=contact;
-              model.navParams.data.contacts.push(contact);
+
+              let contactsComponent = model.navParams.data;
+              contactsComponent.contacts.push(contact);
+              contactsComponent.contactsDict[model.address]=contact;
+
             }, (error) => {
               console.log(error);
             });
@@ -81,6 +86,5 @@ export class AddcontactPage {
           this.errorVisible = true;
         },
       )
-    ;
   }
 }

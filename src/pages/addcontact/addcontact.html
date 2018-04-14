@@ -14,15 +14,15 @@
         <ion-list>
 
           <ion-item>
+            <ion-label floating>Address</ion-label>
+            <ion-input [(ngModel)]="address" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
             <ion-label floating>Display Name</ion-label>
             <ion-input [(ngModel)]="name" type="text"></ion-input>
           </ion-item>
 
-          <ion-item>
-            <ion-label floating>Address</ion-label>
-            <ion-input [(ngModel)]="address" type="text"></ion-input>
-          </ion-item>
-            
         </ion-list>
 
         <div padding ion-text color="danger" *ngIf="errorVisible">{{error}}</div>

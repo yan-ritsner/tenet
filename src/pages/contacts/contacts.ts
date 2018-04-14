@@ -1,3 +1,4 @@
+import { SystemProvider } from './../../providers/system/system';
 import { ListenerProvider } from './../../providers/listener/listener';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -8,6 +9,8 @@ import { ContactData } from './../../data/contact-data';
 import { ContactStatus } from '../../data/contact-status';
 import * as Message from 'bitcore-message';
 import { PublicKey } from 'bitcore-lib';
+import { ConnectData } from '../../data/connect-data';
+import { ApiProvider } from '../../providers/api/api';
 
 @Component({
   selector: 'page-contacts',
@@ -19,15 +22,19 @@ export class ContactsPage implements OnInit {
   contactsDict : any = {};
   contactActive: ContactData = null;
 
+  error: string;
+  errorVisible: boolean = false;
+
   constructor(public navCtrl: NavController,
               public storage: Storage,
-              public listener: ListenerProvider) {
+              public listener: ListenerProvider,
+              public system: SystemProvider,
+              public api: ApiProvider) {
   }
 
   ngOnInit(){
     this.getContactRequest();
     this.loadContacts();
-    //this.testContacts();
   }
 
   getContactRequest(){
@@ -38,15 +45,6 @@ export class ContactsPage implements OnInit {
         this.contactRequest(connections[i]);
     }
   }
-
-  // testContacts(){
-  //   let contact1 = new ContactData("Contact 1", "Address 1", ContactStatus.Requested);
-  //   let contact2 = new ContactData("Contact 2", "Address 2", ContactStatus.Initiated);
-  //   let contact3 = new ContactData("Contact 3", "Address 3", ContactStatus.Connected);
-  //   this.contacts.push(contact1);
-  //   this.contacts.push(contact2);
-  //   this.contacts.push(contact3);
-  // }
 
   loadContacts(){
     let model = this;
@@ -74,7 +72,7 @@ export class ContactsPage implements OnInit {
     let signature = connectData.signature;
     let message = new Message(messageData);
     let messageObj = JSON.parse(messageData);
-    let pubKey = PublicKey.fromString(messageObj.pubkey)
+    let pubKey = PublicKey.fromString(messageObj.pubKey)
     let address = pubKey.toAddress().toString();
     let name  =  messageObj.username ? messageObj.username : "New Contact Request";
     let verified = message.verify(address,signature);
@@ -84,11 +82,74 @@ export class ContactsPage implements OnInit {
       return;
     }
 
-    let contact = new ContactData(name, address, ContactStatus.Requested);
-    contact.pubKey = pubKey;
-    this.contacts.push(contact);
-    this.contacts[contact.address] = contact;
+    let contact = this.contactsDict[address];
 
+    if(contact)
+    {
+       if(contact.name == "New Contact") contact.name = name;
+       contact.status = ContactStatus.Accepted;
+       contact.pubKey = messageObj.pubKey;
+
+       this.storeContact(contact);
+    }
+    else
+    {
+      contact = new ContactData(name, address, ContactStatus.Requested);
+      contact.pubKey = messageObj.pubKey;
+  
+      this.contacts.push(contact);
+      this.contactsDict[address] = contact;
+  
+      this.acceptContact(contact);
+    }
+  }
+
+  acceptContact(contact: ContactData){
+    let model = this;
+    let messageData = JSON.stringify({
+      username: this.system.getUsername(),
+      pubKey: this.system.getPubKey().toString(),
+    });
+    let message = new Message(messageData);
+    let key = this.system.getKey();
+    let signature = message.sign(key);
+    let data = JSON.stringify({
+      message: messageData,
+      signature : signature
+    });
+    
+    let connectData = new ConnectData(contact.address, data);
+    
+    this.api
+    .messagingConnect(connectData)
+    .subscribe(
+      response => {
+        if (response.status >= 200 && response.status < 400){
+         contact.status = ContactStatus.Accepted
+         model.storeContact(contact);
+        }
+      },
+      error => {
+        console.log(error);
+       
+        if (error.status === 0) {
+          this.error = "Could not send accept request"
+        
+        } else if (error.status >= 400) {
+          if (!error.json().errors[0]) {
+            this.error = error;
+          }
+          else {
+            this.error = error.json().errors[0].message;
+          }
+        }
+
+        this.errorVisible = true;
+      },
+    )
+  }
+
+  storeContact(contact: ContactData){
     let model = this;
     model.storage.get('contacts')
     .then((data) => {
@@ -107,6 +168,7 @@ export class ContactsPage implements OnInit {
   deleteContact(contact: ContactData){
    let index = this.contacts.indexOf(contact);
    this.contacts.splice(index,1);
+   delete this.contactsDict[contact.address];
 
    let model = this;
    this.storage.get('contacts')
@@ -142,6 +204,8 @@ export class ContactsPage implements OnInit {
         return "ios-contact-outline";
       case ContactStatus.Requested:
         return "ios-help-circle-outline";
+      case ContactStatus.Accepted:
+        return "ios-checkmark-circle-outline";
       case ContactStatus.Connected:
         return "ios-contact-outline";
     }
@@ -153,8 +217,19 @@ export class ContactsPage implements OnInit {
         return "secondary";
       case ContactStatus.Requested:
         return "secondary";
+      case ContactStatus.Accepted:
+        return "primary3";
       case ContactStatus.Connected:
         return "primary";
     }
+  }
+
+  testContacts(){
+    let contact1 = new ContactData("Contact 1", "Address 1", ContactStatus.Requested);
+    let contact2 = new ContactData("Contact 2", "Address 2", ContactStatus.Initiated);
+    let contact3 = new ContactData("Contact 3", "Address 3", ContactStatus.Connected);
+    this.contacts.push(contact1);
+    this.contacts.push(contact2);
+    this.contacts.push(contact3);
   }
 }
