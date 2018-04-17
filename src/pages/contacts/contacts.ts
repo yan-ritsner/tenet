@@ -79,7 +79,8 @@ export class ContactsPage implements OnInit {
     let pubKey = PublicKey.fromString(messageObj.pubKey)
     let address = pubKey.toAddress().toString();
     let name  =  messageObj.username ? messageObj.username : "New Contact Request";
-    let verified = message.verify(address,signature);
+    let payload = messageObj.payload;
+    let verified = message.verify(address, signature);
 
     if(!verified){
       console.error("Contact was not verified");
@@ -94,11 +95,11 @@ export class ContactsPage implements OnInit {
        {
           if(contact.initiator)
           {
-              //TODO: process answer
+              this.processAnswer(contact, payload);
           }
           else
           {
-              //TODO: process offer, send unswer
+              this.processOffer(contact, payload);
           }
        }
        else
@@ -106,11 +107,10 @@ export class ContactsPage implements OnInit {
           if(contact.name == "New Contact") contact.name = name;
           contact.status = ContactStatus.Accepted;
           contact.pubKey = messageObj.pubKey;
- 
-          this.storeContact(contact);
-
-          //TODO: initiator - send offer
+          
+          this.sendOffer(contact);
        }
+       this.storeContact(contact);
     }
     else
     {
@@ -120,47 +120,89 @@ export class ContactsPage implements OnInit {
       this.contacts.push(contact);
       this.contactsDict[address] = contact;
   
-      this.acceptContact(contact);
+      this.sendResponse(contact, null);
     }
   }
 
-  contactOffer(contact: ContactData)
+  createConnector()
   {
-    let connector: {pc:any, dc:any, offer:any};
+    let connector = {pc:null, dc:null, offer:null, answer: null, dcInit: null};
 
+    connector.dcInit = function(dc)
+    {
+      connector.dc = dc;
+      dc.onopen = () => {console.log("open")};
+      dc.onmessage = e => {console.log(e.data)};
+    }
     connector.pc = new RTCPeerConnection({ iceServers: [this.server] });
+    connector.pc.ondatachannel = e => { connector.dcInit(e.channel)};
     connector.pc.oniceconnectionstatechange = e => {console.log( connector.pc.iceConnectionState)};
-    connector.dc = connector.pc.createDataChannel("chat")
-    connector.dc.onopen = () => {console.log("open")};
-    connector.dc.onmessage = e => {console.log(e.data)};
+
+    return connector;
+  }  
+
+  sendOffer(contact: ContactData)
+  {
+    let connector = this.createConnector();
+    connector.dcInit(connector.pc.createDataChannel("chat"));
+
+    this.contactsConnectors[contact.address] = connector;
 
     connector.pc.createOffer()
       .then(d=> connector.pc.setLocalDescription(d))
       .catch(d=>console.log(d));
+
     connector.pc.onicecandidate = e => {
       if (e.candidate) return;
       connector.offer = connector.pc.localDescription.sdp
+      this.sendResponse(contact, connector.offer);
     }
   }
 
-  acceptContact(contact: ContactData){
+  processOffer(contact: ContactData, offer: string)
+  {
+    let connector = this.createConnector();
+    let desc = new RTCSessionDescription({type:"offer", sdp: offer});
+    connector.offer = offer;
+
+    this.contactsConnectors[contact.address] = connector;
+
+    connector.pc.setRemoteDescription(desc)
+      .then(() => connector.pc.createAnswer())
+      .then(d => connector.pc.setLocalDescription(d))
+      .catch(d =>console.log(d));
+
+    connector.pc.onicecandidate = e =>{
+      if (e.candidate) return;
+      connector.answer = connector.pc.localDescription.sdp;
+      this.sendResponse(contact, connector.answer);
+    }
+  }
+
+  processAnswer(contact: ContactData, answer: string)
+  {
+    let connector = this.contactsConnectors[contact.address];
+    if(!connector) return;
+    
+    var desc = new RTCSessionDescription({ type:"answer", sdp: answer });
+    connector.pc.setRemoteDescription(desc).catch(d =>console.log(d));
+  }
+
+  sendResponse(contact: ContactData, payload: any)
+  {
     let messageData = JSON.stringify({
       username: this.system.getUsername(),
       pubKey: this.system.getPubKey().toString(),
+      payload: payload
     });
     let message = new Message(messageData);
     let key = this.system.getKey();
     let signature = message.sign(key);
     let data = JSON.stringify({
       message: messageData,
-      signature : signature
+      signature : signature,
     });
     
-    this.sendRequest(contact, data);
-  }
-
-  sendRequest(contact: ContactData, data: string)
-  {
     let model = this;
     let connectData = new ConnectData(contact.address, data);
     this.api
