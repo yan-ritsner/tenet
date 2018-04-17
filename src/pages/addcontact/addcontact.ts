@@ -52,6 +52,7 @@ export class AddcontactPage {
 
               let name = model.name ? model.name : "New Contact";
               let contact = new ContactData(name, model.address, ContactStatus.Initiated);
+              contact.initiator = true;
               if(!data) data = {};
 
               data[model.address] = contact;

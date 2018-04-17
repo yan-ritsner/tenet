@@ -4,4 +4,3 @@ export enum ContactStatus {
   Accepted,
   Connected
 }
-  

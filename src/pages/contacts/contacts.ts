@@ -18,9 +18,12 @@ import { ApiProvider } from '../../providers/api/api';
 })
 export class ContactsPage implements OnInit {
 
+  server: any = { urls: "stun:stun.l.google.com:19302" };
+
   contacts: Array<ContactData> = [];
   contactsDict : any = {};
   contactActive: ContactData = null;
+  contactsConnectors: any = {};
 
   error: string;
   errorVisible: boolean = false;
@@ -56,7 +59,8 @@ export class ContactsPage implements OnInit {
         {
           let contactData  = data[keys[i]];
           let contact = new ContactData(contactData.name, contactData.address, contactData.status);
-          if(contactData.pubKey) contact.pubKey = contactData.pubKey;
+          contact.pubKey = contactData.pubKey;
+          contact.initiator = contactData.initiator;
           model.contactsDict[keys[i]] = contact;
           model.contacts.push(contact);
         }
@@ -86,11 +90,27 @@ export class ContactsPage implements OnInit {
 
     if(contact)
     {
-       if(contact.name == "New Contact") contact.name = name;
-       contact.status = ContactStatus.Accepted;
-       contact.pubKey = messageObj.pubKey;
+       if(contact.status == ContactStatus.Accepted)
+       {
+          if(contact.initiator)
+          {
+              //TODO: process answer
+          }
+          else
+          {
+              //TODO: process offer, send unswer
+          }
+       }
+       else
+       {
+          if(contact.name == "New Contact") contact.name = name;
+          contact.status = ContactStatus.Accepted;
+          contact.pubKey = messageObj.pubKey;
+ 
+          this.storeContact(contact);
 
-       this.storeContact(contact);
+          //TODO: initiator - send offer
+       }
     }
     else
     {
@@ -104,8 +124,26 @@ export class ContactsPage implements OnInit {
     }
   }
 
+  contactOffer(contact: ContactData)
+  {
+    let connector: {pc:any, dc:any, offer:any};
+
+    connector.pc = new RTCPeerConnection({ iceServers: [this.server] });
+    connector.pc.oniceconnectionstatechange = e => {console.log( connector.pc.iceConnectionState)};
+    connector.dc = connector.pc.createDataChannel("chat")
+    connector.dc.onopen = () => {console.log("open")};
+    connector.dc.onmessage = e => {console.log(e.data)};
+
+    connector.pc.createOffer()
+      .then(d=> connector.pc.setLocalDescription(d))
+      .catch(d=>console.log(d));
+    connector.pc.onicecandidate = e => {
+      if (e.candidate) return;
+      connector.offer = connector.pc.localDescription.sdp
+    }
+  }
+
   acceptContact(contact: ContactData){
-    let model = this;
     let messageData = JSON.stringify({
       username: this.system.getUsername(),
       pubKey: this.system.getPubKey().toString(),
@@ -118,8 +156,13 @@ export class ContactsPage implements OnInit {
       signature : signature
     });
     
+    this.sendRequest(contact, data);
+  }
+
+  sendRequest(contact: ContactData, data: string)
+  {
+    let model = this;
     let connectData = new ConnectData(contact.address, data);
-    
     this.api
     .messagingConnect(connectData)
     .subscribe(

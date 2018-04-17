@@ -1,4 +1,3 @@
-import { PublicKey } from 'bitcore-lib';
 import { ContactStatus } from "./contact-status";
 
 export class ContactData {
@@ -9,6 +8,7 @@ export class ContactData {
       this.status = status;
     }
 
+    public initiator: boolean; 
     public name: string;
     public address: string;
     public status: ContactStatus;
