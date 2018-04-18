@@ -1,3 +1,4 @@
+import { ContactData } from './../../data/contact-data';
 import { ListenerProvider } from './../../providers/listener/listener';
 import { PrivateKey, PublicKey } from 'bitcore-lib';
 import { Component } from '@angular/core';
@@ -21,6 +22,8 @@ export class MessengerPage {
 
   errorVisible: boolean = false;
   error: string = null;
+
+  selectedContact: ContactData;
 
   constructor(public navCtrl: NavController,    
               public clipboard: Clipboard,
@@ -68,7 +71,10 @@ export class MessengerPage {
   stopListening(){
     this.listener.stopListening();
   }
-
+  contactSelected(contact: ContactData){
+    this.selectedContact = contact;
+    this.tab = "messages";
+  }
   doCopy(){
     if(!this.address) return;
     this.clipboard.copy(this.address);

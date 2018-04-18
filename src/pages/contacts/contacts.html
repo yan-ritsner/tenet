@@ -3,9 +3,9 @@
         <ion-row>
           <ion-col>
             <ion-list inset>
-              <ion-item *ngFor="let c of contacts" class="text-select" (press)="activateContact(c)" (swipe)="activateContact(c)">
+              <ion-item *ngFor="let c of contacts" class="text-select" (press)="activateContact(c)" (swipe)="activateContact(c)" (click)="selectContact(c)">
                 <ion-icon class="icon-inline" item-start [color]="colorForContact(c)" [name]="iconForContact(c)"></ion-icon>
-                <div style="font-size:14px">{{c.name}}</div> 
+                <div class="contact-name">{{c.name}}</div> 
                 <button ion-button icon-only clear item-end color="primary3" *ngIf="c === contactActive" (click)="infoContact(c)">
                   <ion-icon name="ios-information-circle-outline"></ion-icon>
                 </button>

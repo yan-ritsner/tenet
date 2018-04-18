@@ -1,3 +1,18 @@
 page-contacts {
 
+    .contact-name
+    {
+        font-size: 14px;
+
+
+        &:hover
+        {
+            color:rgb(82, 131, 221);
+        }
+
+        &:active
+        {
+            color:rgb(59, 95, 161);;
+        }
+    }
 }

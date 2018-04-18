@@ -1,6 +1,6 @@
 import { SystemProvider } from './../../providers/system/system';
 import { ListenerProvider } from './../../providers/listener/listener';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AddcontactPage } from './../addcontact/addcontact';
@@ -27,6 +27,9 @@ export class ContactsPage implements OnInit {
 
   error: string;
   errorVisible: boolean = false;
+
+  @Output()
+  contactSelected: EventEmitter<ContactData> = new EventEmitter<ContactData>();
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
@@ -124,16 +127,22 @@ export class ContactsPage implements OnInit {
     }
   }
 
-  createConnector()
+  createConnector(contact)
   {
-    let connector = {pc:null, dc:null, offer:null, answer: null, dcInit: null};
+    let connector = {pc:null, dc:null, offer:null, answer: null, dcInit: null, pcClose:null};
 
     connector.dcInit = function(dc)
     {
       connector.dc = dc;
-      dc.onopen = () => {console.log("open")};
+      dc.onopen = () => {console.log("open"); contact.status = ContactStatus.Connected};
       dc.onmessage = e => {console.log(e.data)};
     }
+    connector.pcClose = function()
+    {
+      if(connector.pc == null) return;
+      connector.pc.close();
+    }
+
     connector.pc = new RTCPeerConnection({ iceServers: [this.server] });
     connector.pc.ondatachannel = e => { connector.dcInit(e.channel)};
     connector.pc.oniceconnectionstatechange = e => {console.log( connector.pc.iceConnectionState)};
@@ -143,7 +152,7 @@ export class ContactsPage implements OnInit {
 
   sendOffer(contact: ContactData)
   {
-    let connector = this.createConnector();
+    let connector = this.createConnector(contact);
     connector.dcInit(connector.pc.createDataChannel("chat"));
 
     this.contactsConnectors[contact.address] = connector;
@@ -161,7 +170,7 @@ export class ContactsPage implements OnInit {
 
   processOffer(contact: ContactData, offer: string)
   {
-    let connector = this.createConnector();
+    let connector = this.createConnector(contact);
     let desc = new RTCSessionDescription({type:"offer", sdp: offer});
     connector.offer = offer;
 
@@ -278,6 +287,10 @@ export class ContactsPage implements OnInit {
     this.contactActive = null;
   }
 
+  selectContact(contact: ContactData){
+    this.contactSelected.emit(contact);
+  }
+
   infoContact(contact: ContactData){
     this.navCtrl.push(EditcontactPage,contact);
   }
@@ -290,7 +303,7 @@ export class ContactsPage implements OnInit {
       case ContactStatus.Requested:
         return "ios-help-circle-outline";
       case ContactStatus.Accepted:
-        return "ios-checkmark-circle-outline";
+        return "ios-contact-outline";
       case ContactStatus.Connected:
         return "ios-contact-outline";
     }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ContactData } from './../../data/contact-data';
+import { Component, Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
@@ -7,7 +8,8 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class MessagesPage {
 
-  test:string = 'test';
+  @Input() contact: ContactData;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
