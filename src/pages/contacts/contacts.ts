@@ -1,3 +1,5 @@
+import { Connector } from './../../data/connector';
+import { ContactPayload } from './../../data/contact-payload';
 import { SystemProvider } from './../../providers/system/system';
 import { ListenerProvider } from './../../providers/listener/listener';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
@@ -82,6 +84,7 @@ export class ContactsPage implements OnInit {
     let pubKey = PublicKey.fromString(messageObj.pubKey)
     let address = pubKey.toAddress().toString();
     let name  =  messageObj.username ? messageObj.username : "New Contact Request";
+    let payloadType = messageObj.payloadtype;
     let payload = messageObj.payload;
     let verified = message.verify(address, signature);
 
@@ -92,30 +95,8 @@ export class ContactsPage implements OnInit {
 
     let contact = this.contactsDict[address];
 
-    if(contact)
-    {
-       if(contact.status == ContactStatus.Accepted)
-       {
-          if(contact.initiator)
-          {
-              this.processAnswer(contact, payload);
-          }
-          else
-          {
-              this.processOffer(contact, payload);
-          }
-       }
-       else
-       {
-          if(contact.name == "New Contact") contact.name = name;
-          contact.status = ContactStatus.Accepted;
-          contact.pubKey = messageObj.pubKey;
-          
-          this.sendOffer(contact);
-       }
-       this.storeContact(contact);
-    }
-    else
+    //Contact request
+    if(!contact)
     {
       contact = new ContactData(name, address, ContactStatus.Requested);
       contact.pubKey = messageObj.pubKey;
@@ -125,35 +106,31 @@ export class ContactsPage implements OnInit {
   
       this.sendResponse(contact, null);
     }
+    //Contact response
+    else if(payloadType == null)
+    {
+      if(contact.name == "New Contact") contact.name = name;
+      contact.status = ContactStatus.Accepted;
+      contact.pubKey = messageObj.pubKey;
+
+      this.storeContact(contact);
+    }
+    //Connect offer request
+    else if(payload == ContactPayload.Offer)
+    {
+      this.processOffer(contact, payload);
+    }
+    //Connect answer response
+    else if(payload == ContactPayload.Answer)
+    {
+      this.processAnswer(contact, payload);
+    }
   }
-
-  createConnector(contact)
-  {
-    let connector = {pc:null, dc:null, offer:null, answer: null, dcInit: null, pcClose:null};
-
-    connector.dcInit = function(dc)
-    {
-      connector.dc = dc;
-      dc.onopen = () => {console.log("open"); contact.status = ContactStatus.Connected};
-      dc.onmessage = e => {console.log(e.data)};
-    }
-    connector.pcClose = function()
-    {
-      if(connector.pc == null) return;
-      connector.pc.close();
-    }
-
-    connector.pc = new RTCPeerConnection({ iceServers: [this.server] });
-    connector.pc.ondatachannel = e => { connector.dcInit(e.channel)};
-    connector.pc.oniceconnectionstatechange = e => {console.log( connector.pc.iceConnectionState)};
-
-    return connector;
-  }  
 
   sendOffer(contact: ContactData)
   {
-    let connector = this.createConnector(contact);
-    connector.dcInit(connector.pc.createDataChannel("chat"));
+    let connector = new Connector(contact);
+    connector.dcCreate("chat");
 
     this.contactsConnectors[contact.address] = connector;
 
@@ -170,7 +147,7 @@ export class ContactsPage implements OnInit {
 
   processOffer(contact: ContactData, offer: string)
   {
-    let connector = this.createConnector(contact);
+    let connector = new Connector(contact);
     let desc = new RTCSessionDescription({type:"offer", sdp: offer});
     connector.offer = offer;
 
