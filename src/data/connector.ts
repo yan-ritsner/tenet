@@ -36,6 +36,7 @@ export class Connector {
     {
         this.dc = dc;
         this.dc.onopen = () => {console.log("open"); this.contact.status = ContactStatus.Connected};
+        this.dc.onclose = () => {console.log("close"); this.contact.status = ContactStatus.Accepted};
         this.dc.onmessage = e => {console.log(e.data)};
     }
   

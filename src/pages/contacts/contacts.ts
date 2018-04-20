@@ -30,6 +30,8 @@ export class ContactsPage implements OnInit {
   error: string;
   errorVisible: boolean = false;
 
+  selected: Connector;
+
   @Output()
   contactSelected: EventEmitter<ContactData> = new EventEmitter<ContactData>();
 
@@ -104,7 +106,7 @@ export class ContactsPage implements OnInit {
       this.contacts.push(contact);
       this.contactsDict[address] = contact;
   
-      this.sendResponse(contact, null);
+      this.sendResponse(contact, null, null);
     }
     //Contact response
     else if(payloadType == null)
@@ -141,7 +143,7 @@ export class ContactsPage implements OnInit {
     connector.pc.onicecandidate = e => {
       if (e.candidate) return;
       connector.offer = connector.pc.localDescription.sdp
-      this.sendResponse(contact, connector.offer);
+      this.sendResponse(contact, ContactPayload.Offer, connector.offer);
     }
   }
 
@@ -161,7 +163,7 @@ export class ContactsPage implements OnInit {
     connector.pc.onicecandidate = e =>{
       if (e.candidate) return;
       connector.answer = connector.pc.localDescription.sdp;
-      this.sendResponse(contact, connector.answer);
+      this.sendResponse(contact, ContactPayload.Answer, connector.answer);
     }
   }
 
@@ -174,11 +176,12 @@ export class ContactsPage implements OnInit {
     connector.pc.setRemoteDescription(desc).catch(d =>console.log(d));
   }
 
-  sendResponse(contact: ContactData, payload: any)
+  sendResponse(contact: ContactData, payloadType: ContactPayload, payload: any)
   {
     let messageData = JSON.stringify({
       username: this.system.getUsername(),
       pubKey: this.system.getPubKey().toString(),
+      payloadType: payloadType,
       payload: payload
     });
     let message = new Message(messageData);
