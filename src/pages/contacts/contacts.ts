@@ -26,14 +26,12 @@ export class ContactsPage implements OnInit {
   contactsDict : any = {};
   contactActive: ContactData = null;
   contactsConnectors: any = {};
+  contactSelected: Connector;
+  @Output() 
+  onContactSelected: EventEmitter<Connector> = new EventEmitter<Connector>();
 
   error: string;
   errorVisible: boolean = false;
-
-  selected: Connector;
-
-  @Output()
-  contactSelected: EventEmitter<ContactData> = new EventEmitter<ContactData>();
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
@@ -129,7 +127,7 @@ export class ContactsPage implements OnInit {
     }
   }
 
-  sendOffer(contact: ContactData)
+  sendOffer(contact: ContactData) : Connector
   {
     let connector = new Connector(contact);
     connector.dcCreate("chat");
@@ -145,9 +143,11 @@ export class ContactsPage implements OnInit {
       connector.offer = connector.pc.localDescription.sdp
       this.sendResponse(contact, ContactPayload.Offer, connector.offer);
     }
+
+    return connector;
   }
 
-  processOffer(contact: ContactData, offer: string)
+  processOffer(contact: ContactData, offer: string) : Connector
   {
     let connector = new Connector(contact);
     let desc = new RTCSessionDescription({type:"offer", sdp: offer});
@@ -165,6 +165,8 @@ export class ContactsPage implements OnInit {
       connector.answer = connector.pc.localDescription.sdp;
       this.sendResponse(contact, ContactPayload.Answer, connector.answer);
     }
+    
+    return connector;
   }
 
   processAnswer(contact: ContactData, answer: string)
@@ -268,7 +270,9 @@ export class ContactsPage implements OnInit {
   }
 
   selectContact(contact: ContactData){
-    this.contactSelected.emit(contact);
+    var connector = this.contactsConnectors[contact.address];
+    this.contactSelected = connector ? connector : this.sendOffer(contact);
+    this.onContactSelected.emit(this.contactSelected);
   }
 
   infoContact(contact: ContactData){
