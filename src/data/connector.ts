@@ -55,7 +55,7 @@ export class Connector {
         this.addMessage(message, false);
     }
 
-    addMessage(message:string,out: boolean)
+    addMessage(message: string, out: boolean)
     {
         let messageData = new MessageData(message,new Date(),out);
         this.messages.push(messageData);
