@@ -5,7 +5,7 @@
           <legend align="center" *ngIf="isToday(message.date)">
               today
           </legend>
-          <legend align="center" *ngIf="!isToday(message.timestamp)">
+          <legend align="center" *ngIf="!isToday(message.date)">
               {{message.date | date: "MMMM d"}}
           </legend>
         </fieldset>
