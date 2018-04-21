@@ -1,3 +1,49 @@
-<ion-content padding>
-    <div>{{contact.address}}</div>
+<ion-content class="messages">
+    <ion-list no-padding *ngIf="contact">
+      <div *ngFor="let message of contact.messages; let i = index">
+        <fieldset *ngIf="i == 0 || (i > 0) && message.day() != contact.messages[i-1].day()">
+          <legend align="center" *ngIf="isToday(message.date)">
+              today
+          </legend>
+          <legend align="center" *ngIf="!isToday(message.timestamp)">
+              {{message.date | date: "MMMM d"}}
+          </legend>
+        </fieldset>
+        <ion-item no-lines>
+          <ion-label>
+            <p *ngIf="message.out">
+              <span class="message-text right">{{message.message}}</span>
+              <span class="message-time">{{message.date | date:"hh:mm a"}}</span>
+            </p>
+            <p *ngIf="!message.out">
+              <span class="message-text left">{{message.message}}</span>
+              <span class="message-time">{{message.date | date:"hh:mm a"}}</span>
+            </p>
+          </ion-label>
+          {{message.message}}
+        </ion-item>
+      </div>
+    </ion-list>
 </ion-content>
+  
+<ion-footer>
+    <ion-toolbar no-padding>
+      <ion-row>
+        <ion-col col-10 no-padding>
+          <ion-textarea type="text" 
+            [disabled]="!isConnected()"
+            [(ngModel)]="chatText" 
+            (keydown.enter)="sendMessage($event);false" 
+            rows="1" 
+            [maxlength]="500" 
+            [placeholder]="'Type a message here'"
+            class="message-input" auto-size autocapitalize="off" block></ion-textarea>
+        </ion-col>
+        <ion-col no-padding text-right>
+          <button ion-button (click)="sendMessage($event)" [disabled]="!chatText" color="primary3" class="button-send" small clear icon-only>
+            <ion-icon name="ios-send-outline"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+</ion-footer>

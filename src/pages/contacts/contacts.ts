@@ -84,7 +84,7 @@ export class ContactsPage implements OnInit {
     let pubKey = PublicKey.fromString(messageObj.pubKey)
     let address = pubKey.toAddress().toString();
     let name  =  messageObj.username ? messageObj.username : "New Contact Request";
-    let payloadType = messageObj.payloadtype;
+    let payloadType = messageObj.payloadType;
     let payload = messageObj.payload;
     let verified = message.verify(address, signature);
 
@@ -116,12 +116,12 @@ export class ContactsPage implements OnInit {
       this.storeContact(contact);
     }
     //Connect offer request
-    else if(payload == ContactPayload.Offer)
+    else if(payloadType == ContactPayload.Offer)
     {
       this.processOffer(contact, payload);
     }
     //Connect answer response
-    else if(payload == ContactPayload.Answer)
+    else if(payloadType == ContactPayload.Answer)
     {
       this.processAnswer(contact, payload);
     }
@@ -130,6 +130,7 @@ export class ContactsPage implements OnInit {
   sendOffer(contact: ContactData) : Connector
   {
     let connector = new Connector(contact);
+    connector.pcCreate([this.server]);
     connector.dcCreate("chat");
 
     this.contactsConnectors[contact.address] = connector;
@@ -151,6 +152,7 @@ export class ContactsPage implements OnInit {
   {
     let connector = new Connector(contact);
     let desc = new RTCSessionDescription({type:"offer", sdp: offer});
+    connector.pcCreate([this.server]);
     connector.offer = offer;
 
     this.contactsConnectors[contact.address] = connector;
