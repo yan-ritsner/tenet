@@ -1,7 +1,7 @@
 <ion-content class="messages">
     <ion-list no-padding *ngIf="contact">
       <div *ngFor="let message of contact.messages; let i = index">
-        <fieldset *ngIf="i == 0 || (i > 0) && message.day() != contact.messages[i-1].day()">
+        <fieldset *ngIf="i == 0 || (i > 0) && message.day != contact.messages[i-1].day">
           <legend align="center" *ngIf="isToday(message.date)">
               today
           </legend>
