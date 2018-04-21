@@ -1,3 +1,4 @@
+import { MessageData } from './message-data';
 import { ContactData } from './contact-data';
 import { ContactStatus } from './contact-status';
 
@@ -8,6 +9,9 @@ export class Connector {
     public dc: any;
     public offer: any;
     public answer: any;
+    public messages: Array<MessageData> = [];
+    public messagesMax: number = 1000;
+    public messagesCount: number = 100;
 
     constructor(contact: ContactData) {
        this.contact = contact;
@@ -37,8 +41,28 @@ export class Connector {
         this.dc = dc;
         this.dc.onopen = () => {console.log("open"); this.contact.status = ContactStatus.Connected};
         this.dc.onclose = () => {console.log("close"); this.contact.status = ContactStatus.Accepted};
-        this.dc.onmessage = e => {console.log(e.data)};
+        this.dc.onmessage = e => {console.log(e.data); this.dcReceive(e.data)};
     }
   
+    dcSend(message: string)
+    {
+        this.dc.send(message);
+        this.addMessage(message, true);
+    }
+
+    dcReceive(message: string)
+    {
+        this.addMessage(message, false);
+    }
+
+    addMessage(message:string,out: boolean)
+    {
+        let messageData = new MessageData(message,new Date(),out);
+        this.messages.push(messageData);
+        if(this.messages.length > this.messagesMax)
+        {
+            this.messages.splice(0, this.messagesCount);
+        }
+    }
   }
   
