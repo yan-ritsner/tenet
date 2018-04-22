@@ -5,7 +5,7 @@ page-messages {
 
 			fieldset {
 				border: none;
-				border-top: 0.55px solid #c8c7cc !important;
+				border-top: 0.55px solid #555 !important;
 				margin-top: 24px !important;
 			}
 		}
@@ -35,8 +35,8 @@ page-messages {
 			box-sizing: border-box;
 
 			&.left {
-				background-color: #a7e4ed;
-				color: #444;
+				background-color: #285961;
+				color: #f0f0f0;
 				float: left !important;
 				margin-left: 46px;
 			}
@@ -49,13 +49,13 @@ page-messages {
 				height: 0;
 				border-width: 7px 14px 7px 0;
 				border-style: solid;
-				border-color: transparent #a7e4ed transparent;
+				border-color: transparent #285961 transparent;
 			}
 
 			&.right {
-				background-color: #d7e4ed;
+				background-color: #2b446f;
 				margin-right: 54px;
-				color: #444;
+				color: #f0f0f0;
 				float: right !important;
 			}
 
@@ -67,7 +67,7 @@ page-messages {
 				height: 0;
 				border-width: 7px 0 7px 14px;
 				border-style: solid;
-				border-color: transparent #d7e4ed transparent;
+				border-color: transparent #2b446f transparent;
 			}
 		}
 
@@ -84,6 +84,14 @@ page-messages {
 	}
 
     ion-footer {
+		ion-toolbar
+		{
+			.toolbar-background
+			{
+				background: transparent;
+			}
+		}
+
         i {
             font-size: 24px !important;
             color: #222;
