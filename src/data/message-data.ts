@@ -9,14 +9,14 @@ export class MessageData {
   
     public message: string;
     public date: Date;
-    public day: Date;
+    public day: number;
     public out: boolean;
 
     getDay()
     {
       var d = new Date(this.date);
       d.setHours(0, 0, 0, 0);
-      return d;
+      return d.valueOf();
     }
 
   }
