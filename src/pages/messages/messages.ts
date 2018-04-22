@@ -1,8 +1,7 @@
 import { ContactStatus } from './../../data/contact-status';
 import { Connector } from './../../data/connector';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { NavController, NavParams, /*Platform*/ } from 'ionic-angular';
-// import { Keyboard } from '@ionic-native/keyboard';
+import { NavController, NavParams} from 'ionic-angular';
 
 @Component({
   selector: 'page-messages',
@@ -18,17 +17,7 @@ export class MessagesPage implements OnInit, OnDestroy  {
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams
-    // public platform: Platform,
-    // public keyboard: Keyboard
-  ) {
-  }
-
-  ionViewDidLoad() {
-    // if (this.platform.is('cordova')) {
-    //   this.keyboard.onKeyboardShow()
-    //     .subscribe(() => this.scrollDown());
-    // }
+    public navParams: NavParams) {
   }
 
   ngOnInit() {
