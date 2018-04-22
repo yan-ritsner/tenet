@@ -67,7 +67,12 @@ export class ContactsPage implements OnInit, OnDestroy {
   }
 
   getContactRequest(){
-    this.listener.getUpdates().subscribe(u=>this.contactRequest(u));
+    this.processRequests();
+    this.listener.getUpdates().subscribe(u=>this.processRequests);
+  }
+
+  processRequests()
+  {
     var connections = this.listener.getConnections();
     for(var i=0; i<connections.length; i++)
     {
@@ -300,6 +305,10 @@ export class ContactsPage implements OnInit, OnDestroy {
 
   selectContact(contact: ContactData){
     var connector = this.contactsConnectors[contact.address];
+    if(connector && connector.isClosed()){
+       delete this.contactsConnectors[contact.address];
+       connector = null;
+    }
     this.contactSelected = connector ? connector : this.sendOffer(contact);
     this.onContactSelected.emit(this.contactSelected);
   }
