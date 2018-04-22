@@ -13,11 +13,11 @@
           <ion-label>
             <p *ngIf="message.out">
               <span class="message-text right">{{message.message}}</span>
-              <span class="message-time">{{message.date | date:"hh:mm a"}}</span>
+              <span class="message-time right">{{message.date | date:"hh:mm a"}}</span>
             </p>
             <p *ngIf="!message.out">
               <span class="message-text left">{{message.message}}</span>
-              <span class="message-time">{{message.date | date:"hh:mm a"}}</span>
+              <span class="message-time left">{{message.date | date:"hh:mm a"}}</span>
             </p>
           </ion-label>
           {{message.message}}
