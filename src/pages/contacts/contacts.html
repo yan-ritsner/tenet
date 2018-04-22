@@ -10,7 +10,8 @@
                   <ion-icon  name="ios-copy-outline" ></ion-icon>
                 </button>
               </ion-item>
-              <ion-item *ngFor="let c of contacts" class="text-select" (press)="activateContact(c)" (swipe)="activateContact(c)" (click)="selectContact(c)">
+              <ion-item *ngFor="let c of contacts" class="text-select" 
+                        (press)="activateContact(c)" (swipe)="activateContact(c)" (click)="selectContact(c)" (mouseenter)="activateContact(c)" (mouseleave)="deactivateContact(c)">
                 <ion-icon class="icon-inline" item-start [color]="colorForContact(c)" [name]="iconForContact(c)"></ion-icon>
                 <div class="contact-name">{{c.name}}</div> 
                 <button ion-button icon-only clear item-end color="primary3" *ngIf="c === contactActive" (click)="infoContact(c)">
