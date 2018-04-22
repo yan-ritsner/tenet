@@ -2,7 +2,7 @@ import { Connector } from './../../data/connector';
 import { ContactPayload } from './../../data/contact-payload';
 import { SystemProvider } from './../../providers/system/system';
 import { ListenerProvider } from './../../providers/listener/listener';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AddcontactPage } from './../addcontact/addcontact';
@@ -18,9 +18,9 @@ import { ApiProvider } from '../../providers/api/api';
   selector: 'page-contacts',
   templateUrl: 'contacts.html',
 })
-export class ContactsPage implements OnInit {
+export class ContactsPage implements OnInit, OnDestroy {
 
-  server: any = { urls: "stun:stun.l.google.com:19302" };
+  servers: any = [{ urls: "stun:stun.l.google.com:19302" }];
 
   contacts: Array<ContactData> = [];
   contactsDict : any = {};
@@ -45,6 +45,19 @@ export class ContactsPage implements OnInit {
     this.loadContacts();
   }
 
+  ngOnDestroy(): void {
+
+  }
+
+  disposeContacts(): any {
+    for(var i=0;i<this.contacts.length;i++)
+    {
+      let contact = this.contacts[i];
+      let connector = this.contactsConnectors[contact.address];
+      if(connector) connector.pcClose();
+    }
+  }
+
   getContactRequest(){
     this.listener.getUpdates().subscribe(u=>this.contactRequest(u));
     var connections = this.listener.getConnections();
@@ -52,6 +65,7 @@ export class ContactsPage implements OnInit {
     {
         this.contactRequest(connections[i]);
     }
+    this.listener.clearConnections();
   }
 
   loadContacts(){
@@ -130,7 +144,7 @@ export class ContactsPage implements OnInit {
   sendOffer(contact: ContactData) : Connector
   {
     let connector = new Connector(contact);
-    connector.pcCreate([this.server]);
+    connector.pcCreate(this.servers);
     connector.dcCreate("chat");
 
     this.contactsConnectors[contact.address] = connector;
@@ -152,7 +166,7 @@ export class ContactsPage implements OnInit {
   {
     let connector = new Connector(contact);
     let desc = new RTCSessionDescription({type:"offer", sdp: offer});
-    connector.pcCreate([this.server]);
+    connector.pcCreate(this.servers);
     connector.offer = offer;
 
     this.contactsConnectors[contact.address] = connector;

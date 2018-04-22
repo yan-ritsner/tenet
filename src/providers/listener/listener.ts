@@ -115,13 +115,13 @@ export class ListenerProvider {
     return this.connections;
   }
 
-  getUpdates()
-  {
-    return this.updates;
-  }
-
   clearConnections()
   {
     this.connections = [];
+  }
+  
+  getUpdates()
+  {
+    return this.updates;
   }
 }

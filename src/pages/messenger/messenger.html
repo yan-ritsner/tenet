@@ -25,8 +25,8 @@
     </ion-row>
     <ion-row style="flex:100%">
         <ion-col>
-            <page-contacts *ngIf="tab == 'contacts'" (onContactSelected)="contactSelected($event)"></page-contacts>
-            <page-messages *ngIf="tab == 'messages'" [contact]="selectedContact"></page-messages>
+            <page-contacts [hidden]="tab != 'contacts'" (onContactSelected)="contactSelected($event)"></page-contacts>
+            <page-messages [hidden]="tab != 'messages'" [contact]="selectedContact"></page-messages>
         </ion-col>
       </ion-row>
   </ion-grid>

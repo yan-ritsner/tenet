@@ -22,7 +22,7 @@ import { ConnectData } from '../../data/connect-data';
 export class ApiProvider {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private pollingInterval = 3000;
+  private pollingInterval = 1000;
   private currentApiUrl = 'http://192.168.10.115:37222/api';
 
   constructor(public http: Http) {

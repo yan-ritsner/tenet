@@ -1,6 +1,6 @@
 import { ContactStatus } from './../../data/contact-status';
 import { Connector } from './../../data/connector';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NavController, NavParams, /*Platform*/ } from 'ionic-angular';
 // import { Keyboard } from '@ionic-native/keyboard';
 
@@ -8,7 +8,7 @@ import { NavController, NavParams, /*Platform*/ } from 'ionic-angular';
   selector: 'page-messages',
   templateUrl: 'messages.html',
 })
-export class MessagesPage {
+export class MessagesPage implements OnInit, OnDestroy  {
 
   @Input() contact: Connector;
 
