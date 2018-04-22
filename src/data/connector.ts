@@ -41,7 +41,7 @@ export class Connector {
         this.dc = dc;
         this.dc.onopen = () => {console.log("open"); this.contact.status = ContactStatus.Connected};
         this.dc.onclose = () => {console.log("close"); this.contact.status = ContactStatus.Accepted};
-        this.dc.onmessage = e => {console.log(e.data); this.dcReceive(e.data)};
+        this.dc.onmessage = e => { this.dcReceive(e.data)};
     }
   
     dcSend(message: string)
@@ -63,6 +63,16 @@ export class Connector {
         {
             this.messages.splice(0, this.messagesCount);
         }
+    }
+
+    isOpen()
+    {
+        return this.dc.readyState == "open";
+    }
+
+    isClosed()
+    {
+        return this.dc.readyState == "closing" || this.dc.readyState == "closed";
     }
   }
   

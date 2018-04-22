@@ -1,4 +1,3 @@
-import { ContactStatus } from './../../data/contact-status';
 import { Connector } from './../../data/connector';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NavController, NavParams} from 'ionic-angular';
@@ -43,7 +42,7 @@ export class MessagesPage implements OnInit, OnDestroy  {
 
   isConnected()
   {
-    return this.contact && this.contact.contact.status == ContactStatus.Connected;
+    return this.contact && this.contact.isOpen();
   }
 
   private scrollDown() {

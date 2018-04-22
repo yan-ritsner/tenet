@@ -269,6 +269,11 @@ export class ContactsPage implements OnInit, OnDestroy {
    let index = this.contacts.indexOf(contact);
    this.contacts.splice(index,1);
    delete this.contactsDict[contact.address];
+   if(this.contactsConnectors[contact.address])
+   {
+    this.contactsConnectors[contact.address].pcClose();
+    delete this.contactsConnectors[contact.address];
+   }
 
    let model = this;
    this.storage.get('contacts')
