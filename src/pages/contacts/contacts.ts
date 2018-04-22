@@ -13,6 +13,8 @@ import * as Message from 'bitcore-message';
 import { PublicKey } from 'bitcore-lib';
 import { ConnectData } from '../../data/connect-data';
 import { ApiProvider } from '../../providers/api/api';
+import { Clipboard } from '@ionic-native/clipboard';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-contacts',
@@ -35,6 +37,8 @@ export class ContactsPage implements OnInit, OnDestroy {
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
+              public clipboard: Clipboard,
+              public toastCtrl: ToastController,
               public listener: ListenerProvider,
               public system: SystemProvider,
               public api: ApiProvider) {
@@ -45,8 +49,12 @@ export class ContactsPage implements OnInit, OnDestroy {
     this.loadContacts();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(){
+    this.disposeContacts();
+  }
 
+  address(){
+    return this.system.getAddress();
   }
 
   disposeContacts(): any {
@@ -320,6 +328,30 @@ export class ContactsPage implements OnInit, OnDestroy {
       case ContactStatus.Connected:
         return "primary";
     }
+  }
+
+
+  doCopy(){
+    let address = this.address();
+    if(!address) return;
+    this.clipboard.copy(address);
+    this.copyStringToClipboard(address)
+    let toast = this.toastCtrl.create({
+      message: 'Address: ' +address +' copied!' ,
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  copyStringToClipboard (str: string) {
+    function handler (event){
+        event.clipboardData.setData('text/plain', str);
+        event.preventDefault();
+        document.removeEventListener('copy', handler, true);
+    }
+
+    document.addEventListener('copy', handler, true);
+    document.execCommand('copy');
   }
 
   testContacts(){

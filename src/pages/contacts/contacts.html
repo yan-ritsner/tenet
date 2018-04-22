@@ -3,6 +3,13 @@
         <ion-row>
           <ion-col>
             <ion-list inset>
+             <ion-item ion-fixed class="text-select">
+                <p>Your Address: </p>
+                <p style="color: cornflowerblue">{{address()}}</p>
+                <button ion-button icon-only clear item-end (click)="doCopy()">
+                  <ion-icon  name="ios-copy-outline" ></ion-icon>
+                </button>
+              </ion-item>
               <ion-item *ngFor="let c of contacts" class="text-select" (press)="activateContact(c)" (swipe)="activateContact(c)" (click)="selectContact(c)">
                 <ion-icon class="icon-inline" item-start [color]="colorForContact(c)" [name]="iconForContact(c)"></ion-icon>
                 <div class="contact-name">{{c.name}}</div> 
