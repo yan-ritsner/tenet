@@ -62,7 +62,7 @@ export class ContactsPage implements OnInit, OnDestroy {
     {
       let contact = this.contacts[i];
       let connector = this.contactsConnectors[contact.address];
-      if(connector) connector.pcClose();
+      if(connector) connector.close();
     }
   }
 
@@ -103,6 +103,7 @@ export class ContactsPage implements OnInit, OnDestroy {
   }
 
   contactRequest(data){
+    console.log("contactRequest");
     let connectData  = JSON.parse(data);
     let messageData = connectData.message;
     let signature = connectData.signature;
@@ -156,13 +157,14 @@ export class ContactsPage implements OnInit, OnDestroy {
 
   sendOffer(contact: ContactData) : Connector
   {
+    console.log("sendOffer");
     let connector = new Connector(contact);
     connector.pcCreate(this.servers);
     connector.dcCreate("chat");
 
     this.contactsConnectors[contact.address] = connector;
 
-    connector.pc.createOffer()
+    connector.pc.createOffer({iceRestart:true})
       .then(d=> connector.pc.setLocalDescription(d))
       .catch(d=>console.log(d));
 
@@ -177,6 +179,7 @@ export class ContactsPage implements OnInit, OnDestroy {
 
   processOffer(contact: ContactData, offer: string) : Connector
   {
+    console.log("processOffer");
     let connector = new Connector(contact);
     let desc = new RTCSessionDescription({type:"offer", sdp: offer});
     connector.pcCreate(this.servers);
@@ -200,6 +203,7 @@ export class ContactsPage implements OnInit, OnDestroy {
 
   processAnswer(contact: ContactData, answer: string)
   {
+    console.log("processAnswer");
     let connector = this.contactsConnectors[contact.address];
     if(!connector) return;
     
@@ -209,6 +213,7 @@ export class ContactsPage implements OnInit, OnDestroy {
 
   sendResponse(contact: ContactData, payloadType: ContactPayload, payload: any)
   {
+    console.log("sendResponse");
     let messageData = JSON.stringify({
       username: this.system.getUsername(),
       pubKey: this.system.getPubKey().toString(),
@@ -306,6 +311,7 @@ export class ContactsPage implements OnInit, OnDestroy {
   selectContact(contact: ContactData){
     var connector = this.contactsConnectors[contact.address];
     if(connector && connector.isClosed()){
+       connector.close();
        delete this.contactsConnectors[contact.address];
        connector = null;
     }

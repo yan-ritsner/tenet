@@ -22,6 +22,7 @@ export class Connector {
         this.pc = new RTCPeerConnection({ iceServers: iceServers});
         this.pc.ondatachannel = e => { this.dcInit(e.channel)};
         this.pc.oniceconnectionstatechange = e => {console.log( this.pc.iceConnectionState)};
+        this.pc.onsignalingstatechange = e =>{console.log(this.pc.signalingState)}
     }
 
     pcClose()
@@ -35,6 +36,12 @@ export class Connector {
         let dc = this.pc.createDataChannel(name)
         this.dcInit(dc);
     }
+
+    dcClose()
+    {
+        if(this.dc == null) return;
+        this.dc.close();
+    } 
 
     dcInit(dc: any)
     {
@@ -74,5 +81,11 @@ export class Connector {
     {
         return this.dc.readyState == "closing" || this.dc.readyState == "closed";
     }
-  }
+ 
+    close()
+    {
+        this.dcClose();
+        this.pcClose();
+    }
+}
   
