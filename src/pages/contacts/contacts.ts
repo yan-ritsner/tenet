@@ -15,6 +15,7 @@ import { ConnectData } from '../../data/connect-data';
 import { ApiProvider } from '../../providers/api/api';
 import { Clipboard } from '@ionic-native/clipboard';
 import { ToastController } from 'ionic-angular';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-contacts',
@@ -31,6 +32,7 @@ export class ContactsPage implements OnInit, OnDestroy {
   contactSelected: Connector;
   @Output() 
   onContactSelected: EventEmitter<Connector> = new EventEmitter<Connector>();
+  contactSubs : Subscription = null;
 
   error: string;
   errorVisible: boolean = false;
@@ -50,6 +52,7 @@ export class ContactsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
+    this.disposeContactSubscription();
     this.disposeContacts();
   }
 
@@ -66,9 +69,15 @@ export class ContactsPage implements OnInit, OnDestroy {
     }
   }
 
+  disposeContactSubscription()
+  {
+    if(this.contactSubs== null) return;
+    this.contactSubs.unsubscribe();
+  }
+
   getContactRequest(){
     this.processRequests();
-    this.listener.getUpdates().subscribe(u=>this.processRequests());
+    this.contactSubs = this.listener.getUpdates().subscribe(u=>this.processRequests());
   }
 
   processRequests()
