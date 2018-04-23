@@ -68,7 +68,7 @@ export class ContactsPage implements OnInit, OnDestroy {
 
   getContactRequest(){
     this.processRequests();
-    this.listener.getUpdates().subscribe(u=>this.processRequests);
+    this.listener.getUpdates().subscribe(u=>this.processRequests());
   }
 
   processRequests()
