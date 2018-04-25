@@ -98,6 +98,14 @@ page-messages {
 				right: 0px;
 			}
 		}
+		
+		.message-contact
+		{
+			display: inline-block;
+			position: absolute;
+			top: -3px;
+			left: 0;
+		}
 	}
 
     ion-footer {
