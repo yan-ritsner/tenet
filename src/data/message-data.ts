@@ -5,7 +5,7 @@ export class MessageData {
       this.date = date;
       this.out = out;
       this.day = this.getDay();
-      this.main = this.getMin();
+      this.min = this.getMin();
     }
   
     public message: string;

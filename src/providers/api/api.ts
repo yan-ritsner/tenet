@@ -242,27 +242,39 @@ export class ApiProvider {
      * Send messaging start listening command 
      */
     messagingStartListening(data: ListenData): Observable<any> {
+      console.log("messagingStartListening-request");
       return this.http
         .post(this.currentApiUrl + '/messaging/startlistening', JSON.stringify(data), {headers: this.headers})
-        .map((response: Response) => response);
+        .map((response: Response) => {
+          console.log("messagingStartListening-response");
+          return response;
+        });
     }
 
     /**
      * Send messaging stop listening command 
      */
     messagingStopListening(data: ListenData): Observable<any> {
+      console.log("messagingStopListening-request");
       return this.http
         .post(this.currentApiUrl + '/messaging/stoplistening', JSON.stringify(data), {headers: this.headers})
-        .map((response: Response) => response);
+        .map((response: Response) => {
+          console.log("messagingStopListening-response");
+          return response;
+        });
     }
     
     /**
      * Send messaging connect command 
      */
     messagingConnect(data: ConnectData): Observable<any> {
+      console.log("messagingConnect-request");
       return this.http
         .post(this.currentApiUrl + '/messaging/connect', JSON.stringify(data), {headers: this.headers})
-        .map((response: Response) => response);
+        .map((response: Response) => {
+          console.log("messagingConnect-response");
+          return response;
+        });
     }
     
     /**
@@ -271,12 +283,15 @@ export class ApiProvider {
     messagingGetConnections(data: ListenData): Observable<any> {
       let params: URLSearchParams = new URLSearchParams();
       params.set('address', data.address);
-
+      console.log("messagingGetConnections-request");
       return Observable
         .interval(this.pollingInterval)
         .startWith(0)
         .switchMap(() => this.http.get(this.currentApiUrl + '/messaging/connections', new RequestOptions({headers: this.headers, search: params})))
-        .map((response: Response) => response);
+        .map((response: Response) => {
+          console.log("messagingGetConnections-response");
+          return response;
+        });
     }
 
 }
