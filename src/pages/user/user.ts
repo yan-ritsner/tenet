@@ -25,10 +25,7 @@ export class UserPage implements OnInit {
     .then((data) => {
       if(data)
       {
-        model.user = {
-          isfb: data.isfb,
-          name: data.name,
-        };
+        model.user = data;
         model.userReady = true;
       }
       else

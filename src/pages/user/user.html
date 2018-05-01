@@ -8,11 +8,18 @@
 </ion-header>
 
 <ion-content padding>
-
     <ion-grid class="grid-shrink" *ngIf="userReady">
       <ion-row>
         <ion-col>
-            <div padding>Welcome {{user.name}}!</div>
+            <ion-list>
+              <ion-item>
+                <ion-avatar item-start *ngIf="user.isfb" >
+                  <img [src]="user.picture"/>
+                </ion-avatar>
+                <ion-icon item-start *ngIf="!user.isfb" color="primary3" name="ios-contact-outline"></ion-icon>
+                <h2 padding>{{user.name}}</h2>
+              </ion-item>
+            </ion-list>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -23,5 +30,4 @@
           </ion-col>
         </ion-row>
     </ion-grid>
-
 </ion-content>
