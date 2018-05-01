@@ -7,6 +7,7 @@ page-messages {
 
 		.scroll-content{
 			margin-bottom: 50px;
+			margin-top:50px;
 		}
 
 		ion-list {
@@ -15,7 +16,7 @@ page-messages {
 			fieldset {
 				border: none;
 				border-top: 0.55px solid #555 !important;
-				margin-top: 24px !important;
+				margin-top: 5px !important;
 			}
 		}
 		
@@ -82,7 +83,7 @@ page-messages {
 
 		.message-time {
 			position: absolute;
-			margin-top: 4px;
+			margin-top: 8px;
 			color: #a2a2a2;
 			font-size: 1.2rem;
 			vertical-align: middle;
@@ -90,12 +91,12 @@ page-messages {
 			
 			&.left
 			{
-				left: 0px;
+				left: 3px;
 			}
 
 			&.right
 			{
-				right: 0px;
+				right: 3px;
 			}
 		}
 		
@@ -105,6 +106,7 @@ page-messages {
 			position: absolute;
 			top: -3px;
 			left: 0;
+			font-size: 14px;
 		}
 	}
 

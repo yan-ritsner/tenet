@@ -1,4 +1,15 @@
 <ion-content class="messages">
+ 
+    <ion-list no-padding ion-fixed *ngIf="contact">
+      <ion-item>
+        <ion-icon class="icon-inline" item-start 
+                  [color]="contact.contact.getColor()" 
+                  [name]="contact.contact.getIcon()"></ion-icon>
+        <div style="font-size: 14px">{{contact.contact.name}}</div> 
+        <p>{{contact.contact.getStatus()}}</p>
+      </ion-item>
+    </ion-list>
+  
     <ion-list no-padding *ngIf="contact">
       <div *ngFor="let message of contact.messages; let i = index">
         <fieldset *ngIf="i == 0 || (message.day != contact.messages[i-1].day)">
@@ -16,7 +27,6 @@
               <span class="message-time right">{{message.date | date:"hh:mm a"}}</span>
             </p>
             <p *ngIf="!message.out">
-              <span class="message-contact">{{contact.contact.name}}</span>
               <span class="message-text left">{{message.message}}</span>
               <span class="message-time left">{{message.date | date:"hh:mm a"}}</span>
             </p>

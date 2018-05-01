@@ -15,17 +15,15 @@ page-contacts {
         }
     }
 
+    .fixed-content
+    {
+        ion-label
+        {
+            margin: 0;
+        }
+    }
     .scroll-content
     {
         top:55px;
-    }
-
-    .fixed-content
-    {
-        ion-list,
-        ion-label
-        {
-            margin:0;
-        }
     }
 }

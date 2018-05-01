@@ -1,8 +1,8 @@
-<ion-content padding>
-  <ion-grid ion-fixed>
+<ion-content>
+  <ion-grid ion-fixed no-padding>
     <ion-row>
       <ion-col>
-        <ion-list>
+        <ion-list no-padding no-margin>
           <ion-item class="text-select">
             <p>Your Address: </p>
             <p style="color: cornflowerblue">{{address()}}</p>
@@ -14,15 +14,15 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid>
+  <ion-grid no-padding>
       <ion-row>
         <ion-col>
-          <ion-list>
+          <ion-list no-padding>
             <ion-item *ngFor="let c of contacts" class="text-select" 
                       (press)="activateContact(c)" (swipe)="activateContact(c)" (click)="selectContact(c)" 
                       (mouseenter)="activateContact(c)" (mouseleave)="deactivateContact(c)">
               <ion-icon class="icon-inline" item-start [color]="c.getColor()" [name]="c.getIcon()"></ion-icon>
-              <h3>{{c.name}}</h3> 
+              <div style="font-size: 14px">{{c.name}}</div> 
               <p>{{c.getStatus()}}</p>
               <button ion-button icon-only clear item-end color="primary3" *ngIf="c === contactActive" (click)="infoContact(c)">
                 <ion-icon name="ios-information-circle-outline"></ion-icon>

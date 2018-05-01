@@ -42,17 +42,17 @@ export class ContactData {
       }
     }
   
-    getStatus(){
+    getStatus(ready: string="ready"){
       switch(this.status)
       {
         case ContactStatus.Initiated:
-          return "Requested";
+          return "pending";
         case ContactStatus.Requested:
-          return "Requested";
+          return "pending";
         case ContactStatus.Accepted:
-          return "Ready";
+          return ready;
         case ContactStatus.Connected:
-          return "Connected";
+          return "connected";
       }
     }
   }
