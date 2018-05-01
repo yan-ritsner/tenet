@@ -13,5 +13,47 @@ export class ContactData {
     public address: string;
     public status: ContactStatus;
     public pubKey: string;
+
+    getIcon(){
+      switch(this.status)
+      {
+        case ContactStatus.Initiated:
+          return "ios-contact-outline";
+        case ContactStatus.Requested:
+          return "ios-help-circle-outline";
+        case ContactStatus.Accepted:
+          return "ios-contact-outline";
+        case ContactStatus.Connected:
+          return "ios-contact-outline";
+      }
+    }
+  
+    getColor(){
+      switch(this.status)
+      {
+        case ContactStatus.Initiated:
+          return "secondary";
+        case ContactStatus.Requested:
+          return "secondary";
+        case ContactStatus.Accepted:
+          return "primary3";
+        case ContactStatus.Connected:
+          return "primary";
+      }
+    }
+  
+    getStatus(){
+      switch(this.status)
+      {
+        case ContactStatus.Initiated:
+          return "Requested";
+        case ContactStatus.Requested:
+          return "Requested";
+        case ContactStatus.Accepted:
+          return "Ready";
+        case ContactStatus.Connected:
+          return "Connected";
+      }
+    }
   }
   

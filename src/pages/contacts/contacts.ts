@@ -332,34 +332,6 @@ export class ContactsPage implements OnInit, OnDestroy {
     this.navCtrl.push(EditcontactPage,contact);
   }
 
-  iconForContact(contact: ContactData){
-    switch(contact.status)
-    {
-      case ContactStatus.Initiated:
-        return "ios-contact-outline";
-      case ContactStatus.Requested:
-        return "ios-help-circle-outline";
-      case ContactStatus.Accepted:
-        return "ios-contact-outline";
-      case ContactStatus.Connected:
-        return "ios-contact-outline";
-    }
-  }
-  colorForContact(contact: ContactData){
-    switch(contact.status)
-    {
-      case ContactStatus.Initiated:
-        return "secondary";
-      case ContactStatus.Requested:
-        return "secondary";
-      case ContactStatus.Accepted:
-        return "primary3";
-      case ContactStatus.Connected:
-        return "primary";
-    }
-  }
-
-
   doCopy(){
     let address = this.address();
     if(!address) return;
@@ -381,14 +353,5 @@ export class ContactsPage implements OnInit, OnDestroy {
 
     document.addEventListener('copy', handler, true);
     document.execCommand('copy');
-  }
-
-  testContacts(){
-    let contact1 = new ContactData("Contact 1", "Address 1", ContactStatus.Requested);
-    let contact2 = new ContactData("Contact 2", "Address 2", ContactStatus.Initiated);
-    let contact3 = new ContactData("Contact 3", "Address 3", ContactStatus.Connected);
-    this.contacts.push(contact1);
-    this.contacts.push(contact2);
-    this.contacts.push(contact3);
   }
 }
