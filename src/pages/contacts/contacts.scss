@@ -4,7 +4,6 @@ page-contacts {
     {
         font-size: 14px;
 
-
         &:hover
         {
             color:rgb(82, 131, 221);
@@ -13,6 +12,20 @@ page-contacts {
         &:active
         {
             color:rgb(59, 95, 161);;
+        }
+    }
+
+    .scroll-content
+    {
+        top:55px;
+    }
+
+    .fixed-content
+    {
+        ion-list,
+        ion-label
+        {
+            margin:0;
         }
     }
 }

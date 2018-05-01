@@ -1,15 +1,23 @@
 <ion-content padding>
+  <ion-grid ion-fixed>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item class="text-select">
+            <p>Your Address: </p>
+            <p style="color: cornflowerblue">{{address()}}</p>
+            <button ion-button icon-only clear item-end (click)="doCopy()">
+              <ion-icon  name="ios-copy-outline" ></ion-icon>
+            </button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-list inset>
-            <ion-item ion-fixed class="text-select">
-              <p>Your Address: </p>
-              <p style="color: cornflowerblue">{{address()}}</p>
-              <button ion-button icon-only clear item-end (click)="doCopy()">
-                <ion-icon  name="ios-copy-outline" ></ion-icon>
-              </button>
-            </ion-item>
+          <ion-list>
             <ion-item *ngFor="let c of contacts" class="text-select" 
                       (press)="activateContact(c)" (swipe)="activateContact(c)" (click)="selectContact(c)" 
                       (mouseenter)="activateContact(c)" (mouseleave)="deactivateContact(c)">
