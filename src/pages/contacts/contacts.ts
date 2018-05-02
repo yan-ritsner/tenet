@@ -190,9 +190,19 @@ export class ContactsPage implements OnInit, OnDestroy {
   {
     console.log("processOffer");
     let connector = new Connector(contact);
+
     let desc = new RTCSessionDescription({type:"offer", sdp: offer});
     connector.pcCreate(this.servers);
     connector.offer = offer;
+
+    let currentConnector = this.contactsConnectors[contact.address]
+    if(currentConnector){
+      currentConnector.close();
+      if(this.contactSelected == currentConnector){
+        this.contactSelected = connector;
+        this.onContactSelected.emit(this.contactSelected);
+      }
+    }
 
     this.contactsConnectors[contact.address] = connector;
 

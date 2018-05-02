@@ -74,12 +74,12 @@ export class Connector {
 
     isOpen()
     {
-        return this.dc.readyState == "open";
+        return this.dc && this.dc.readyState == "open";
     }
 
     isClosed()
     {
-        return this.dc.readyState == "closing" || this.dc.readyState == "closed";
+        return this.dc == null || this.dc.readyState == "closing" || this.dc.readyState == "closed";
     }
  
     close()

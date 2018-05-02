@@ -21,9 +21,10 @@ export class ListenerProvider {
 
   startListening(address: string)
   {
-      if(this.address == null) 
-        this.address = address; 
+      if(this.address == address) return;
+
       this.stopListening();
+      
       this.address = address;
       let listenData = new ListenData(this.address);
       this.api.messagingStartListening(listenData).subscribe(response => {
@@ -50,6 +51,8 @@ export class ListenerProvider {
 
   stopListening()
   {
+    if(this.address == null) return;
+
     if(this.subs != null) {
       this.subs.unsubscribe();
       this.subs = null;
@@ -74,6 +77,8 @@ export class ListenerProvider {
         }
       }
     });
+
+    this.address = null;
   }
 
   listenConnections()
