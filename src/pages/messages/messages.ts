@@ -28,7 +28,7 @@ export class MessagesPage implements OnInit, OnDestroy  {
   }
 
   sendMessage(event: any) {
-    if (!this.chatText || !this.contact || !this.contact.isOpen)
+    if (!this.chatText || !this.contact || !this.contact.isOpen())
       return;
 
     this.contact.dcSend(this.chatText);
