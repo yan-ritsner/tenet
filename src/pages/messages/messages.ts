@@ -1,5 +1,5 @@
 import { Connector } from './../../data/connector';
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { NavController, NavParams} from 'ionic-angular';
 
 @Component({
@@ -16,7 +16,8 @@ export class MessagesPage implements OnInit, OnDestroy  {
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private cdRef : ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -25,6 +26,10 @@ export class MessagesPage implements OnInit, OnDestroy  {
 
   ngOnDestroy() {
     this.autoScroller.disconnect();
+  }
+
+  ngAfterViewChecked() : void {
+    this.cdRef.detectChanges();
   }
 
   sendMessage(event: any) {
