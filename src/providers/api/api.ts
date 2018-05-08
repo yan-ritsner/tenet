@@ -23,7 +23,7 @@ export class ApiProvider {
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private pollingInterval = 1000;
-  private currentApiUrl = 'http://192.168.10.115:37222/api';
+  private currentApiUrl = 'http://52.16.204.42:37222/api';
 
   constructor(public http: Http) {
   
