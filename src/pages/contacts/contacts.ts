@@ -23,7 +23,13 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ContactsPage implements OnInit, OnDestroy {
 
-  servers: any = [{ urls: "stun:stun.l.google.com:19302" }];
+  servers: any = [
+    { urls: "stun:stun.l.google.com:19302" },
+    {
+      urls: 'turn:numb.viagenie.ca',
+      credential: 'yr321050817',
+      username: 'yan.ritsner1984@gmail.com'
+    }];
 
   contacts: Array<ContactData> = [];
   contactsDict : any = {};

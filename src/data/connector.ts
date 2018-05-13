@@ -21,8 +21,12 @@ export class Connector {
     {
         this.pc = new RTCPeerConnection({ iceServers: iceServers});
         this.pc.ondatachannel = e => { this.dcInit(e.channel)};
-        this.pc.oniceconnectionstatechange = e => {console.log( this.pc.iceConnectionState)};
-        this.pc.onsignalingstatechange = e =>{console.log(this.pc.signalingState)}
+        this.pc.oniceconnectionstatechange = e => {
+            console.log("ice:" + this.pc.iceConnectionState)
+        };
+        this.pc.onsignalingstatechange = e =>{
+            console.log("signaling:" +this.pc.signalingState)
+        }
     }
 
     pcClose()
