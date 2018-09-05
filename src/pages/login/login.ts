@@ -25,7 +25,7 @@ export class LoginPage implements OnInit  {
     public fb: Facebook,
     public storage: Storage,
     public system: SystemProvider) {
-    this.fb.browserInit(this.FB_APP_ID, "v2.8");
+    //this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
   ngOnInit(){
